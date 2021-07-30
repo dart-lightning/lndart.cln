@@ -34,6 +34,11 @@ void main() {
       params['description'] = 'This is a unit test';
 
       await client.call('invoice', payload: params);
+
+      params = <String, dynamic>{};
+      params['label'] = 'from-dart';
+      params['status'] = 'unpaid';
+      await client.call('delinvoice', payload: params);
       client.close();
     });
   });

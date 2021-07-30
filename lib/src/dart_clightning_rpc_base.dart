@@ -56,10 +56,7 @@ class WebSocketClient implements LightningClient {
     LogManager.getInstance.info(
         'Connection to websocket at the following link $wsUrl');
     var socket = WebSocketChannel.connect(Uri.parse(wsUrl));
-    _client =
-        Client(socket.cast<String>()); //TODO: Check this initialization method.
-    // The client won't subscribe to the input stream until you call `listen`.
-    // The returned Future won't complete until the connection is closed.
+    _client = Client(socket.cast<String>()); //TODO: Check this initialization method.
     unawaited(_client.listen());
     return this;
   }
