@@ -14,4 +14,6 @@ dev_dependencies:
   test: ^1.16.0
 dependencies: 
   json_rpc_2: ^3.0.1
+  jsonrpc2: ^3.0.1
+  logger: ^1.0.0
   web_socket_channel: ^2.1.0

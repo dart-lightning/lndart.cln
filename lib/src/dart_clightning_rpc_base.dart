@@ -1,5 +1,12 @@
-import 'package:web_socket_channel/io.dart';
+import 'dart:convert';
+
+import 'package:dart_clightning_rpc/src/wrappers/ln_params.dart';
+import 'package:dart_clightning_rpc/src/utils/logger_manager.dart';
+import 'package:dart_clightning_rpc/src/utils/unix_rpc_client.dart';
+import 'package:dart_clightning_rpc/src/wrappers/ln_response.dart';
 import 'package:json_rpc_2/json_rpc_2.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 /// Client interface to create a (c-)lightning client
 /// That can support different protocols.
@@ -7,37 +14,66 @@ abstract class LightningClient {
   // Connect interface to initialize the client
   // with the correct protocol.
   LightningClient connect(String url);
+
   // Generic method to call a method in (c-)lightning
-  Future<Map<String, Object>>? call(String method, {Map<String, Object> payload = const {}});
+  Future<Map<String, dynamic>> call(String method,
+      {Map<String, dynamic> payload = const {}});
+
+  void close();
 }
 
 class RPCClient implements LightningClient {
-  late Client _client;
+  late UnixRPCClient _client;
 
   @override
-  LightningClient connect(String url) {
-    var socket = IOWebSocketChannel.connect(Uri.parse(url));
-    _client = Client(socket.cast()); //TODO: Check this initialization method.
+  LightningClient connect(String path) {
+    LogManager.getInstance.info(
+        'Connection to JSON RPC 2.0 at the following path $path');
+    _client = UnixRPCClient(path);
     return this;
   }
 
   @override
-  Future<Map<String, Object>>? call(String method, {Map<String, Object> payload= const {}}) {
-    return _client.sendRequest(method, payload) as Future<Map<String, Object>>; //TODO check this information
+  Future<Map<String, dynamic>> call(String method,
+      {Map<String, dynamic> payload = const {}}) async {
+    var response = await _client.call(method, payload);
+    LogManager.getInstance.debug('Response from RPC is : ${response.toString()}');
+    return response;
+  }
+
+  @override
+  void close() async {
+    //TODO implement this stuff
   }
 }
 
 class WebSocketClient implements LightningClient {
-  late IOWebSocketChannel _client;
+  late Client _client;
 
   @override
   LightningClient connect(String url) {
-    _client = IOWebSocketChannel.connect(Uri.parse('ws://$url'));
+    var wsUrl = 'wss://$url';
+    LogManager.getInstance.info(
+        'Connection to websocket at the following link $wsUrl');
+    var socket = WebSocketChannel.connect(Uri.parse(wsUrl));
+    _client =
+        Client(socket.cast<String>()); //TODO: Check this initialization method.
+    // The client won't subscribe to the input stream until you call `listen`.
+    // The returned Future won't complete until the connection is closed.
+    unawaited(_client.listen());
     return this;
   }
 
   @override
-  Future<Map<String, Object>>? call(String method, {Map<String, Object> payload = const {}}) {
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> call(String method,
+      {Map<String, dynamic> payload = const {}}) async {
+    var response = await _client.sendRequest(method, payload);
+    LogManager.getInstance.debug(response);
+    return jsonDecode(response);
+  }
+
+  @override
+  void close() {
+    _client.close();
   }
 }
