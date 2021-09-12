@@ -20,7 +20,7 @@ void main() {
       client.connect(rpcPath);
       expect(client, isNotNull);
       var response = await client.call('getinfo');
-      expect(response['network'], 'testnet');
+      expect(response['network'], 'regtest');
       client.close();
     });
 
