@@ -3,9 +3,8 @@
 
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
-
   <p>
-    <strong>Dart framework for C-Lightning to work with the RPC interface.</strong>
+    <strong> :dart: Dart framework for C-Lightning to work with the RPC interface :dart: </strong>
   </p>
 
   <p>
