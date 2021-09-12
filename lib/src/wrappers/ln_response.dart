@@ -15,7 +15,9 @@ class LNResponse {
 
   LNResponse.fromJson(Map<String, dynamic> json) {
     _params.clear(); //TO be sure.
-    json.forEach((key, value) { _params[key] = value; });
+    json.forEach((key, value) {
+      _params[key] = value;
+    });
   }
 
   Map<String, dynamic> toJSON() => _params;

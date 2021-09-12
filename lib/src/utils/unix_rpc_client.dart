@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dart_clightning_rpc/src/utils/logger_manager.dart';
+import 'package:clightning.dart/src/utils/logger_manager.dart';
 import 'package:jsonrpc2/jsonrpc2.dart';
 
 class UnixRPCClient extends ServerProxyBase {

@@ -1,30 +1,32 @@
-import 'package:dart_clightning_rpc/dart_clightning_rpc.dart';
+import 'dart:io';
 import 'package:test/test.dart';
+import 'package:clightning.dart/clightning_rpc_base.dart';
 
 void main() {
-  group('A group of test to connect the WS connections', () {
-
-    setUp(() { });
+  var env = Platform.environment;
+  var rpcPath = env["RPC_PATH"]!;
+  group('A group of test to connect the unix socket', () {
+    setUp(() {});
 
     test('Connection test', () {
       var client = RPCClient();
-      client.connect('/media/vincent/Maxtor/C-lightning/node/testnet/lightning-rpc');
+      client.connect(rpcPath);
       expect(client, isNotNull);
       client.close();
     });
 
     test('Call getinfo method test', () async {
       var client = RPCClient();
-      client.connect('/media/vincent/Maxtor/C-lightning/node/testnet/lightning-rpc');
+      client.connect(rpcPath);
       expect(client, isNotNull);
       var response = await client.call('getinfo');
-      expect(response["network"], "testnet");
+      expect(response['network'], 'testnet');
       client.close();
     });
 
     test('Call invoice method test', () async {
       var client = RPCClient();
-      client.connect('/media/vincent/Maxtor/C-lightning/node/testnet/lightning-rpc');
+      client.connect(rpcPath);
       expect(client, isNotNull);
       // Docs of the parametes
       // https://lightning.readthedocs.io/lightning-invoice.7.html
@@ -33,12 +35,12 @@ void main() {
       params['label'] = 'from-dart';
       params['description'] = 'This is a unit test';
 
-      await client.call('invoice', payload: params);
+      await client.call('invoice', params: params);
 
       params = <String, dynamic>{};
       params['label'] = 'from-dart';
       params['status'] = 'unpaid';
-      await client.call('delinvoice', payload: params);
+      await client.call('delinvoice', params: params);
       client.close();
     });
   });
