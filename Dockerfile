@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install bitcoin core and lightningd (last version)
 RUN add-apt-repository ppa:luke-jr/bitcoincore
-RUN apt-get update  && apt-get install -y bitcoind jq
+RUN apt-get update  && apt-get install -y bitcoind libsodium-dev libpq-dev
 
 ENV CLIGHTNING_VERSION=0.10.1
 
