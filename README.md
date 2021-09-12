@@ -14,8 +14,6 @@
 
   <h4>
     <a href="https://github.com/dart-lightning">Project Homepage</a>
-    <span> | </span>
-    <a href="https://docs.rs/bdk">Documentation</a>
   </h4>
 </div>
 
