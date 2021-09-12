@@ -9,7 +9,7 @@
   </p>
 
   <p>
-   
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
   </p>
 
   <h4>
