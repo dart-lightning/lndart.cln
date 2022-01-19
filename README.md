@@ -28,7 +28,7 @@ TODO
 
 ## How to Use
 ```dart
-import 'package:clightning.dart/clightning_rpc_base.dart';
+import 'package:clightning.dart/clightning_rpc.dart';
 
 Future<void> main() async {
   var client = RPCClient();

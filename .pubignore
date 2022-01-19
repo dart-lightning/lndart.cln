@@ -1,0 +1,4 @@
+**/sandbox
+**/sandbox/*
+Dockerfile
+docker-compose.yaml

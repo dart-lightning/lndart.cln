@@ -1,4 +1,4 @@
-name: clightning.dart
+name: clightning_rpc
 description: Dart framework for C-Lightning to work with the RPC interface.
 version: 0.0.1
 homepage: https://github.com/dart-lightning/clightning-rpc.dart
