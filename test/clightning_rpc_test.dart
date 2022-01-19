@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:test/test.dart';
-import 'package:clightning.dart/clightning_rpc_base.dart';
+import 'package:clightning_rpc/clightning_rpc.dart';
 
 void main() {
   var env = Platform.environment;
-  var rpcPath = env["RPC_PATH"]!;
+  var rpcPath = env['RPC_PATH']!;
   group('A group of test to connect the unix socket', () {
     setUp(() {});
 
