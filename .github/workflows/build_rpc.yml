@@ -24,6 +24,6 @@ jobs:
       - name: sdk ${{ matrix.sdk }} and os ${{ matrix.os }}
         run: |
           cd packages/rpc
-          pub get
+          dart pub get
           dart format --set-exit-if-changed .
           dart analyze

@@ -4,7 +4,7 @@
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
   <p>
-    <strong> :dart: Dart framework for C-Lightning to work with the RPC interface :dart: </strong>
+    <strong> :dart: Dart framework for C-Lightning:dart: </strong>
   </p>
 
   <p>
@@ -24,35 +24,14 @@
 - License
 
 ## Introduction
-TODO
+ 
+The repository is managed as monorepo, and it contains the following packages:
 
-## How to Use
-```dart
-import 'package:clightning.dart/clightning_rpc.dart';
-
-Future<void> main() async {
-  var client = RPCClient();
-  client.connect('/media/vincent/Maxtor/C-lightning/node/bitcoin/lightning-rpc');
-  var response = await client.call('getinfo');
-  print(response);
-
-  var params = <String, dynamic>{
-    'msatoshi': '100000msat',
-    'label': 'from-dart-1',
-    'description': 'This is a unit test'
-  };
-  response = await client.call('invoice', params: params);
-  print(response);
-
-  params = <String, dynamic>{
-    'label': params['label'],
-    'status': 'unpaid',
-  };
-  response = await client.call('delinvoice', params: params);
-  print(response);
-}
+- clightning_rpc: The RPC wrapper around the core lightning API.
+- cln_plugin: A library to write extensible plugin in dart for core lightning.
     
-```
 ## How Contribute
-TODO
+
+Read out [Haking guide](#TODO)
+
 ## License

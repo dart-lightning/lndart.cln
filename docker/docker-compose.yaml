@@ -3,8 +3,8 @@ version: "3.8"
 services:
   cln:
     build:
-      context: ../packages/rpc
+      context: ../packages/rpc/
       dockerfile: ../../docker/Dockerfile.integration_test
     volumes:
       - ./sandbox/:/workdir
-      - ./:/workdir/code
+      - ../packages/rpc/:/workdir/code

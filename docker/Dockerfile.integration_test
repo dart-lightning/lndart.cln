@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install bitcoin core and lightningd (last version)
 RUN add-apt-repository ppa:luke-jr/bitcoincore
-RUN apt-get update  && apt-get install -y bitcoind libsodium-dev libpq-dev jq
+RUN apt-get update  && apt-get install -y bitcoind libsodium-dev libpq-dev jq make
 
 ENV CLIGHTNING_VERSION=0.10.2
 
@@ -23,8 +23,5 @@ RUN rm -r clightning-v$CLIGHTNING_VERSION-Ubuntu-20.04.tar.xz
 ENV PATH=/opt/clightning-v$CLIGHTNING_VERSION/bin:$PATH
 
 WORKDIR workdir
-
-RUN mkdir code
-COPY . code/
 
 CMD ["./entrypoint.sh"]
