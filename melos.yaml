@@ -18,16 +18,23 @@ scripts:
     select-package:
       scope: "rpc"
 
+  plugin_analyze:
+    run: melos exec -c 1 -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    description: Run dart analyzer in a specific package.
+    select-package:
+      scope: "rpc"
+
   test:
     description: Run tests in a specific package.
     run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
     select-package:
+      scope: "cln_plugin"
       dir-exists:
         - "test/"
     env:
       MELOS_TEST: true
 
-  client_test:
+  rpc_test:
     description: Run tests in a specific package.
     run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
     select-package:
