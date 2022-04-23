@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Integration testing
         run: |
+          cd docker
           docker-compose up --exit-code-from clightning.dart --quiet-pull
       - name: Upload lightning log
         uses: actions/upload-artifact@v2

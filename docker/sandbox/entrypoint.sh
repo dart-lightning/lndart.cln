@@ -5,4 +5,3 @@
 cd code
 pub get
 RPC_PATH=/workdir/lightning_dir_two/regtest/lightning-rpc dart test
-
