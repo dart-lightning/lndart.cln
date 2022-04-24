@@ -22,18 +22,32 @@ analyze: fmt
 ci_check_rpc:
 	$(CC) run rpc_test --no-select
 
+ci_check_plugin:
+	$(CC) run plugin_test --no-select
+
 ci_fmt_rpc:
 	$(CC) run rpc_analyze --no-select
 
+ci_fmt_plugin:
+	$(CC) run plugin_analyze --no-select
+
 ci_coverage_rpc:
-	$(CC) run client_test_coverage --no-select
+	$(CC) run rpc_test_coverage --no-select
+
+ci_coverage_plugin:
+	$(CC) run plugin_test_coverage --no-select
 
 check_rpc: ci_fmt_rpc ci_check_rpc
+
+check_plugin: ci_fmt_plugin ci_check_plugin
 
 changelog_rpc:
 	cd packages/rpc && $(CC_CHANGELOG)
 
-changelog: changelog_rpc
+changelog_plugin:
+	cd packages/rpc && $(CC_CHANGELOG)
+
+changelog: changelog_rpc changelog_plugin
 
 ci: dep ci_check_rpc
 
