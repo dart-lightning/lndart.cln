@@ -1,0 +1,50 @@
+name: lndart_cln
+
+ide:
+  intellij: true
+
+packages:
+  - packages/**
+
+scripts:
+  analyze:
+    run: melos exec -c 1 -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    description: Run dart analyzer in a specific package.
+    select-package:
+
+  rpc_analyze:
+    run: melos exec -c 1 -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    description: Run dart analyzer in a specific package.
+    select-package:
+      scope: "rpc"
+
+  test:
+    description: Run tests in a specific package.
+    run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
+    select-package:
+      dir-exists:
+        - "test/"
+    env:
+      MELOS_TEST: true
+
+  client_test:
+    description: Run tests in a specific package.
+    run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
+    select-package:
+      scope: "rpc"
+      dir-exists:
+        - "test/"
+    env:
+      MELOS_TEST: true
+
+  client_test_coverage:
+    description: Run tests in a specific package.
+    run: melos exec --concurrency=2 -- "dart run test --coverage="coverage" && dart run coverage:format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib"
+    select-package:
+      scope: "graphql"
+      dir-exists:
+        - "test/"
+    env:
+      MELOS_TEST: true
+
+  format: dart format -o write .

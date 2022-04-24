@@ -9,12 +9,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Integration testing
         run: |
-          docker-compose up --exit-code-from clightning.dart --quiet-pull
+          cd docker
+          docker-compose up --exit-code-from cln --quiet-pull
       - name: Upload lightning log
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           path: |
-            sandbox/node_one.log
-            sandbox/node_two.log
+            docker/sandbox/node_one.log
+            docker/sandbox/node_two.log
           name: ${{ github.run_number }}
