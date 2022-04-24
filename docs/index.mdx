@@ -1,20 +1,8 @@
-<div align="center">
-  <h1>lndart.clightning</h1>
+---
+description: ":dart: Dart framework for C-Lightning :dart: "
+---
 
-  <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
-
-  <p>
-    <strong> :dart: Dart framework for C-Lightning to work with the RPC interface :dart: </strong>
-  </p>
-
-  <p>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
-  </p>
-
-  <h4>
-    <a href="https://github.com/dart-lightning">Project Homepage</a>
-  </h4>
-</div>
+<img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
 ## Table of Content
 
@@ -24,39 +12,15 @@
 - License
 
 ## Introduction
-TODO
 
-## How to Use
-```dart
-import 'package:clightning.dart/clightning_rpc.dart';
+The repository is managed as monorepo, and it contains the following packages:
 
-Future<void> main() async {
-  var client = RPCClient();
-  client.connect('/media/vincent/Maxtor/C-lightning/node/bitcoin/lightning-rpc');
-  var response = await client.call('getinfo');
-  print(response);
-
-  var params = <String, dynamic>{
-    'msatoshi': '100000msat',
-    'label': 'from-dart-1',
-    'description': 'This is a unit test'
-  };
-  response = await client.call('invoice', params: params);
-  print(response);
-
-  params = <String, dynamic>{
-    'label': params['label'],
-    'status': 'unpaid',
-  };
-  response = await client.call('delinvoice', params: params);
-  print(response);
-}
-    
-```
+- clightning_rpc: The RPC wrapper around the core lightning API.
+- cln_plugin: A library to write extensible plugin in dart for core lightning.
 
 ## How Contribute
 
-TODO
+Read out [Hacking guide](#TODO)
 
 ## License
 
