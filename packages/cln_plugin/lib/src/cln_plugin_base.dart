@@ -45,9 +45,11 @@ class Plugin implements CLNPlugin {
         if (messageSocket!.trim().isEmpty) {
           continue;
         }
+        File('/home/swapnil/clightning4j/p_log.txt')
+            .writeAsString(messageSocket);
       }
     } catch (error, stacktrace) {
-      print('$error:$stacktrace');
+      // print('$error:$stacktrace');
     }
   }
 
