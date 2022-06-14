@@ -1,6 +1,6 @@
 /// Support for doing something awesome.
 ///
-/// More dartdocs go here.
+/// More dart docs go here.
 library cln_plugin;
 
 export 'src/cln_plugin_base.dart';
