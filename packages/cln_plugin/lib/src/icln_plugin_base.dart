@@ -1,3 +1,5 @@
+import 'package:cln_plugin/cln_plugin.dart';
+
 abstract class CLNPlugin {
   void start();
 
@@ -6,12 +8,6 @@ abstract class CLNPlugin {
       required String channel,
       required String init,
       required String invoice});
-
-  void registerRPCMethod(
-      {required String name,
-      required String usage,
-      required String description,
-      required Function callback});
 
   void registerOption(
       {required String name,
@@ -24,5 +20,15 @@ abstract class CLNPlugin {
 
   void registerHook({required String name});
 
-  void registerNotification({required String event, required Function onEvent});
+  void registerNotification(
+      {required String event,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          onEvent});
+
+  void registerRPCMethod(
+      {required String name,
+      required String usage,
+      required String description,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback});
 }

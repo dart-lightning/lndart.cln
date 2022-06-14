@@ -1,4 +1,6 @@
-class RPCMethod {
+import 'package:cln_plugin/cln_plugin.dart';
+
+class RPCCommand {
   /// Method name
   String name;
 
@@ -12,9 +14,9 @@ class RPCMethod {
   late String longDescription;
 
   /// The callback function
-  Function callback;
+  Future<Map<String, Object>> Function(Plugin, Map<String, Object>) callback;
 
-  RPCMethod(
+  RPCCommand(
       {required this.name,
       required this.usage,
       required this.description,
@@ -22,5 +24,10 @@ class RPCMethod {
       String? longDescription}) {
     // means if is null set the longDescription = description
     this.longDescription = longDescription ?? description;
+  }
+
+  Future<Map<String, Object>> call(
+      Plugin plugin, Map<String, Object> request) async {
+    return await callback(plugin, request);
   }
 }
