@@ -115,16 +115,17 @@ class Plugin implements CLNPlugin {
             init(plugin, request));
   }
 
-  Future<Map<String, Object>> _call(String name, Map<String, Object> request) {
+  Future<Map<String, Object>> _call(
+      String name, Map<String, Object> request) async {
     if (rpcMethods.containsKey(name)) {
       var method = rpcMethods[name]!;
-      return method.call(this, request);
+      return await method.call(this, request);
     }
     throw Exception("Method with name $name not found!");
   }
 
   @override
-  void start() {
+  void start() async {
     _initPlugin();
     try {
       String? messageSocket;
@@ -137,7 +138,7 @@ class Plugin implements CLNPlugin {
         /// FIXME: read the json request
         try {
           // uncomment this to make dart happy
-          /*var response =*/ _call("INSERT THE NAME OF THE METHOD", {});
+          /*var response =*/ await _call("INSERT THE NAME OF THE METHOD", {});
 
           /// FIXME: fill the response with the result != null
         } catch (ex, stacktrace) {
