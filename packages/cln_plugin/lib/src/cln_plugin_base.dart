@@ -3,15 +3,17 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:cln_plugin/src/rpcmethods/abstractrpcmethod.dart';
-import 'package:cln_plugin/src/rpcmethods/manifest/types/option.dart';
-import 'package:cln_plugin/src/rpcmethods/manifest/types/feature.dart';
+import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
+import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
+import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
+import 'package:cln_plugin/src/rpc_method/types/option.dart';
+import 'package:cln_plugin/src/rpc_method/types/feature.dart';
 
 import 'icln_plugin_base.dart';
 
 class Plugin implements CLNPlugin {
   /// List of methods exposed
-  late List<RPCMethod> rpcMethods;
+  late HashMap<String, RPCCommand> rpcMethods;
 
   /// List of Subscriptions
   late List<String> subscriptions;
@@ -29,27 +31,9 @@ class Plugin implements CLNPlugin {
   late bool dynamic = false;
 
   /// Custom notifications map
-  late HashMap<String, Function> notifications;
+  HashMap<String, RPCCommand> notifications = HashMap();
 
-  Plugin({bool dynamic = false}) {
-    // Data member initializations
-  }
-
-  @override
-  void start() {
-    // This function will communicate with the rpc.
-    try {
-      String? messageSocket;
-      while ((messageSocket = stdin.readLineSync()) != null) {
-        // Already checked is stdin is not null, why trim and check again??
-        if (messageSocket!.trim().isEmpty) {
-          continue;
-        }
-      }
-    } catch (error, stacktrace) {
-      print('$error:$stacktrace');
-    }
-  }
+  Plugin({bool dynamic = false});
 
   @override
   void registerFeature(
@@ -59,19 +43,6 @@ class Plugin implements CLNPlugin {
       required String invoice}) {
     features =
         Feature(node: node, channel: channel, init: init, invoice: invoice);
-  }
-
-  @override
-  void registerRPCMethod(
-      {required String name,
-      required String usage,
-      required String description,
-      required Function callback}) {
-    rpcMethods = RPCMethod(
-        name: name,
-        usage: usage,
-        description: description,
-        callback: callback) as List<RPCMethod>;
   }
 
   @override
@@ -90,6 +61,17 @@ class Plugin implements CLNPlugin {
   }
 
   @override
+  void registerRPCMethod(
+      {required String name,
+      required String usage,
+      required String description,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback}) {
+    rpcMethods[name] = RPCCommand(
+        name: name, usage: usage, description: description, callback: callback);
+  }
+
+  @override
   void registerSubscriptions({required String event}) {
     subscriptions.add(event);
   }
@@ -101,7 +83,70 @@ class Plugin implements CLNPlugin {
 
   @override
   void registerNotification(
-      {required String event, required Function onEvent}) {
-    notifications.addAll({event: onEvent});
+      {required String event,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          onEvent}) {
+    notifications["event"] =
+        RPCCommand(name: "", usage: "", description: "", callback: onEvent);
+  }
+
+  /// get manifest method used to communicate the plugin configuration
+  /// to core lightning.
+  Future<Map<String, Object>> getManifest(
+      Plugin plugin, Map<String, Object> request) {
+    return Future.value({});
+  }
+
+  /// init method used to answer to configure the plugin with the core lightning
+  /// configuration.
+  Future<Map<String, Object>> init(Plugin plugin, Map<String, Object> request) {
+    return Future.value({});
+  }
+
+  // init plugin used to register the rpc method required by the plugin
+  // life cycle
+  void _initPlugin() {
+    rpcMethods["getmanifest"] =
+        GetManifest(callback: (Plugin plugin, Map<String, Object> request) {
+      return getManifest(plugin, request);
+    });
+    rpcMethods["init"] = InitMethod(
+        callback: (Plugin plugin, Map<String, Object> request) =>
+            init(plugin, request));
+  }
+
+  Future<Map<String, Object>> _call(String name, Map<String, Object> request) {
+    if (rpcMethods.containsKey(name)) {
+      var method = rpcMethods[name]!;
+      return method.call(this, request);
+    }
+    throw Exception("Method with name $name not found!");
+  }
+
+  @override
+  void start() {
+    _initPlugin();
+    try {
+      String? messageSocket;
+      while ((messageSocket = stdin.readLineSync()) != null) {
+        // Already checked is stdin is not null, why trim and check again??
+        if (messageSocket!.trim().isEmpty) {
+          continue;
+        }
+
+        /// FIXME: read the json request
+        try {
+          // uncomment this to make dart happy
+          /*var response =*/ _call("INSERT THE NAME OF THE METHOD", {});
+
+          /// FIXME: fill the response with the result != null
+        } catch (ex, stacktrace) {
+          /// Fill the Response with the error != null
+          print('$ex:$stacktrace');
+        }
+      }
+    } catch (error, stacktrace) {
+      print('$error:$stacktrace');
+    }
   }
 }
