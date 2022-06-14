@@ -1,6 +1,3 @@
-import 'package:cln_plugin/src/rpcmethods/abstractrpcmethod.dart';
-import 'package:cln_plugin/src/rpcmethods/manifest/types/option.dart';
-
 abstract class CLNPlugin {
   void start();
 
