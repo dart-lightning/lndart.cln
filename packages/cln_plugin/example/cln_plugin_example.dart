@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cln_plugin/cln_plugin.dart';
+import 'package:cln_plugin/src/json_rpc/request.dart';
 
 void main() {
   var plugin = Plugin(dynamic: true);
