@@ -140,9 +140,10 @@ class Plugin implements CLNPlugin {
 
         /// FIXME: read the json request
         try {
-          var response = await _call(jsonRequest.method, {});
+          var response = await _call(jsonRequest.method, jsonRequest.params);
           File('/home/swapnil/clightning4j/p_log.txt')
               .writeAsString(response.toString());
+        print(Response(result: response).toJson());
 
           /// FIXME: fill the response with the result != null
         } catch (ex, stacktrace) {
