@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'error.dart';
 
@@ -36,5 +34,5 @@ class Response {
 
   /// This function converts a generated class object back to
   /// a JSON HashMap.
-  String toJson() => jsonEncode(_$ResponseToJson(this));
+  Map<String, dynamic> toJson() => _$ResponseToJson(this);
 }

@@ -135,11 +135,20 @@ class Plugin implements CLNPlugin {
     throw Exception("Method with name $name not found!");
   }
 
+  void log({required String level, required String message}) {
+    var result = HashMap<String, Object>();
+    result["level"] = level;
+    result["message"] = message;
+    print("${Response(id: 1, result: result).toJson()}\n");
+  }
+
   @override
   void start() async {
     _initPlugin();
     try {
       String? messageSocket;
+
+      /// TODO move this in async way
       while ((messageSocket = stdin.readLineSync()) != null) {
         // Already checked is stdin is not null, why trim and check again??
         if (messageSocket!.trim().isEmpty) {
@@ -153,14 +162,15 @@ class Plugin implements CLNPlugin {
           } else {
             param = HashMap();
           }
-          var response = await _call(jsonRequest.method, param);
-          stdout.write(Response(id: jsonRequest.id, result: response).toJson());
+          var result = await _call(jsonRequest.method, param);
+          var response = Response(id: jsonRequest.id, result: result).toJson();
+          stdout.write(jsonEncode(response));
         } catch (ex) {
           var response = Response(
-              id: jsonRequest.id,
-              error: Error(code: -1, message: ex.toString()))
+                  id: jsonRequest.id,
+                  error: Error(code: -1, message: ex.toString()))
               .toJson();
-          stdout.write(response);
+          stdout.write(jsonEncode(response));
         }
       }
     } catch (error, stacktrace) {
