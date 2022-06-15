@@ -131,17 +131,25 @@ class Plugin implements CLNPlugin {
 
         /// FIXME: read the json request
         try {
-          // uncomment this to make dart happy
-          /*var response =*/ await _call("INSERT THE NAME OF THE METHOD", {});
-
-          /// FIXME: fill the response with the result != null
-        } catch (ex, stacktrace) {
-          /// Fill the Response with the error != null
-          print('$ex:$stacktrace');
+          HashMap<String, Object> param;
+          if (jsonRequest.params is Map) {
+            param = HashMap<String, Object>.from(jsonRequest.params);
+          } else {
+            param = HashMap();
+          }
+          var response = await _call(jsonRequest.method, param);
+          stdout.write(Response(id: jsonRequest.id, result: response).toJson());
+        } catch (ex) {
+          var response = Response(
+                  id: jsonRequest.id,
+                  error: Error(code: -1, message: ex.toString()))
+              .toJson();
+          stdout.write(response);
         }
       }
     } catch (error, stacktrace) {
-      print('$error:$stacktrace');
+      stderr.write(stacktrace);
+      stderr.write(error);
     }
   }
 }

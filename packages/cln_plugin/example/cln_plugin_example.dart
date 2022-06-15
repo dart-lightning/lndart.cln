@@ -6,9 +6,11 @@ void main() {
       name: "foo",
       usage: "",
       description: "an example of how register a ",
-      callback: (plugin, request) => Future.value(<String, Object>{
-            "msg": "Hello",
-            "language": "dart",
-          }));
+      callback: (plugin, request) {
+        return Future.value(<String, Object>{
+          "msg": "Hello",
+          "language": "dart",
+        });
+      });
   plugin.start();
 }
