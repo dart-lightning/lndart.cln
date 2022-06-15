@@ -3,7 +3,7 @@ FMT=format
 ARGS="--help"
 PROBLEM=
 
-default: fmt
+default: fmt examples
 
 dep:
 	$(CC) pub get
@@ -11,6 +11,9 @@ dep:
 fmt:
 	$(CC) $(FMT) .
 	$(CC) analyze .
+
+examples:
+	$(CC) compile exe example/cln_plugin_example.dart -o cln_dart
 
 gen:
 	$(CC) run build_runner build
