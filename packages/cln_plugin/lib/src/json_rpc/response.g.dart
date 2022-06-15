@@ -7,7 +7,7 @@ part of 'response.dart';
 // **************************************************************************
 
 Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       result: json['result'] as Map<String, dynamic>?,
       error: json['error'] == null
           ? null
@@ -27,6 +27,6 @@ Map<String, dynamic> _$ResponseToJson(Response instance) {
 
   writeNotNull('result', instance.result);
   writeNotNull('error', instance.error?.toJson());
-  val['id'] = instance.id;
+  writeNotNull('id', instance.id);
   return val;
 }
