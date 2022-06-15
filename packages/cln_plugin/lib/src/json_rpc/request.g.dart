@@ -9,7 +9,9 @@ part of 'request.dart';
 Request _$RequestFromJson(Map<String, dynamic> json) => Request(
       id: json['id'] as int,
       method: json['method'] as String,
-      params: json['params'] as Map<String, dynamic>,
+      params: (json['params'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e as Object),
+      ),
     )..jsonrpc = json['jsonrpc'] as String;
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{

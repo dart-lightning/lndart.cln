@@ -20,4 +20,14 @@ class Option {
       required this.def,
       required this.description,
       required this.deprecated});
+
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "type": type,
+      "description": description,
+      "default": def,
+      "deprecated": deprecated,
+    };
+  }
 }
