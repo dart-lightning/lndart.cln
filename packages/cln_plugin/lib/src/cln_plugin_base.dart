@@ -1,27 +1,30 @@
 // TODO: Put public facing types in this file.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_plugin/src/json_rpc/request.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
 
 import 'icln_plugin_base.dart';
+import 'json_rpc/response.dart';
 
 class Plugin implements CLNPlugin {
   /// List of methods exposed
-  late HashMap<String, RPCCommand> rpcMethods;
+  HashMap<String, RPCCommand> rpcMethods = HashMap();
 
   /// List of Subscriptions
-  late List<String> subscriptions;
+  List<String> subscriptions = [];
 
   /// List of Options
-  late List<Option> options;
+  List<Option> options = [];
 
   /// List of Hooks
-  late Set<String> hooks;
+  Set<String> hooks = {};
 
   /// FeatureBits for announcements of featurebits in protocol
   HashMap<String, Object> features = HashMap();
@@ -128,16 +131,16 @@ class Plugin implements CLNPlugin {
         if (messageSocket!.trim().isEmpty) {
           continue;
         }
+        var jsonRequest = Request.fromJson(jsonDecode(messageSocket));
 
         /// FIXME: read the json request
         try {
-          // uncomment this to make dart happy
-          /*var response =*/ await _call("INSERT THE NAME OF THE METHOD", {});
+          var response = await _call(jsonRequest.method, jsonRequest.params);
 
-          /// FIXME: fill the response with the result != null
+          print(Response(id: jsonRequest.id, result: response).toJson());
         } catch (ex, stacktrace) {
           /// Fill the Response with the error != null
-          print('$ex:$stacktrace');
+          stderr.write(stacktrace);
         }
       }
     } catch (error, stacktrace) {
