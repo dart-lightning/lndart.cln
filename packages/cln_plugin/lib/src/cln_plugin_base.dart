@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_plugin/src/icln_plugin_base.dart';
 import 'package:cln_plugin/src/json_rpc/error.dart';
 import 'package:cln_plugin/src/json_rpc/request.dart';
 import 'package:cln_plugin/src/json_rpc/response.dart';
@@ -11,9 +12,6 @@ import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
-
-import 'icln_plugin_base.dart';
-import 'json_rpc/response.dart';
 
 class Plugin implements CLNPlugin {
   /// List of methods exposed
