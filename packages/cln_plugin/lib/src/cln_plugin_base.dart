@@ -147,15 +147,25 @@ class Plugin implements CLNPlugin {
         }
         var jsonRequest = Request.fromJson(jsonDecode(messageSocket));
         try {
-          var response = await _call(jsonRequest.method, jsonRequest.params);
-          print("${Response(id: jsonRequest.id, result: response).toJson()}\n");
+          HashMap<String, Object> param;
+          if (jsonRequest.params is Map) {
+            param = HashMap<String, Object>.from(jsonRequest.params);
+          } else {
+            param = HashMap();
+          }
+          var response = await _call(jsonRequest.method, param);
+          stdout.write(Response(id: jsonRequest.id, result: response).toJson());
         } catch (ex) {
-          print(
-              "${Response(id: jsonRequest.id, error: Error(code: -1, message: ex.toString())).toJson()}\n");
+          var response = Response(
+              id: jsonRequest.id,
+              error: Error(code: -1, message: ex.toString()))
+              .toJson();
+          stdout.write(response);
         }
       }
     } catch (error, stacktrace) {
-      print('$error:$stacktrace');
+      stderr.write(stacktrace);
+      stderr.write(error);
     }
   }
 }

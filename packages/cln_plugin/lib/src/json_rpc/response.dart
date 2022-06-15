@@ -20,11 +20,11 @@ class Response {
   Error? error;
 
   /// An identifier established by the Server.
-  int id;
+  int? id;
 
   /// A constructor for creating a new class instance.
   Response({
-    required this.id,
+    this.id,
     this.result,
     this.error,
   });
