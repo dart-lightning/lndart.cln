@@ -12,6 +12,7 @@ import 'package:cln_plugin/src/rpc_method/types/option.dart';
 import 'package:cln_plugin/src/rpc_method/types/feature.dart';
 
 import 'icln_plugin_base.dart';
+import 'json_rpc/response.dart';
 
 class Plugin implements CLNPlugin {
   /// List of methods exposed
@@ -140,10 +141,10 @@ class Plugin implements CLNPlugin {
 
         /// FIXME: read the json request
         try {
-          var response = await _call(jsonRequest.method, jsonRequest.params);
+          var response = await _call(jsonRequest.method, jsonRequest.params as Map<String, Object>);
           File('/home/swapnil/clightning4j/p_log.txt')
               .writeAsString(response.toString());
-        print(Response(result: response).toJson());
+          print(Response(id: jsonRequest.id, result: response).toJson());
 
           /// FIXME: fill the response with the result != null
         } catch (ex, stacktrace) {
