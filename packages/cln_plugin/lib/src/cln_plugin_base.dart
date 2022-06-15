@@ -19,19 +19,19 @@ class Plugin implements CLNPlugin {
   HashMap<String, RPCCommand> rpcMethods = HashMap();
 
   /// List of Subscriptions
-  late List<String> subscriptions;
+  List<String> subscriptions = [];
 
   /// List of Options
-  late List<Option> options;
+  List<Option> options = [];
 
   /// List of Hooks
-  late Set<String> hooks;
+  Set<String> hooks = {};
 
   /// FeatureBits for announcements of featurebits in protocol
   late Feature features;
 
   /// Boolean to mark dynamic management of plugin
-  late bool dynamic = false;
+  bool dynamic = false;
 
   /// Custom notifications map
   HashMap<String, RPCCommand> notifications = HashMap();
