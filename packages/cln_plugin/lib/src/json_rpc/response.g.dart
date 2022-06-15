@@ -14,9 +14,19 @@ Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
           : Error.fromJson(json['error'] as Map<String, dynamic>),
     )..jsonrpc = json['jsonrpc'] as String;
 
-Map<String, dynamic> _$ResponseToJson(Response instance) => <String, dynamic>{
-      'jsonrpc': instance.jsonrpc,
-      'result': instance.result,
-      'error': instance.error?.toJson(),
-      'id': instance.id,
-    };
+Map<String, dynamic> _$ResponseToJson(Response instance) {
+  final val = <String, dynamic>{
+    'jsonrpc': instance.jsonrpc,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('result', instance.result);
+  writeNotNull('error', instance.error?.toJson());
+  val['id'] = instance.id;
+  return val;
+}
