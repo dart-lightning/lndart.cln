@@ -1,8 +1,10 @@
 // TODO: Put public facing types in this file.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_plugin/src/json_rpc/request.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
@@ -13,7 +15,7 @@ import 'icln_plugin_base.dart';
 
 class Plugin implements CLNPlugin {
   /// List of methods exposed
-  late HashMap<String, RPCCommand> rpcMethods;
+  HashMap<String, RPCCommand> rpcMethods = HashMap();
 
   /// List of Subscriptions
   late List<String> subscriptions;
@@ -134,11 +136,13 @@ class Plugin implements CLNPlugin {
         if (messageSocket!.trim().isEmpty) {
           continue;
         }
+        var jsonRequest = Request.fromJson(jsonDecode(messageSocket));
 
         /// FIXME: read the json request
         try {
-          // uncomment this to make dart happy
-          /*var response =*/ await _call("INSERT THE NAME OF THE METHOD", {});
+          var response = await _call(jsonRequest.method, {});
+          File('/home/swapnil/clightning4j/p_log.txt')
+              .writeAsString(response.toString());
 
           /// FIXME: fill the response with the result != null
         } catch (ex, stacktrace) {
