@@ -1,18 +1,14 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cln_plugin/cln_plugin.dart';
-import 'package:cln_plugin/src/json_rpc/request.dart';
 
 void main() {
-  // String messageSocket = stdin.readLineSync()!;
-  // if (messageSocket.trim().isEmpty) {
-  //   File('/home/swapnil/clightning4j/p_log.txt')
-  //       .writeAsString("Empty");
-  // }
-  // var jsonRequest = Request.fromJson(jsonDecode(messageSocket));
-  // File('/home/swapnil/clightning4j/p_log.txt')
-  //     .writeAsString(jsonRequest.method.toString());
-  var plugin = Plugin();
+  var plugin = Plugin(dynamic: true);
+  plugin.registerRPCMethod(
+      name: "foo",
+      usage: "",
+      description: "an example of how register a ",
+      callback: (plugin, request) => Future.value(<String, Object>{
+            "msg": "Hello",
+            "language": "dart",
+          }));
   plugin.start();
 }

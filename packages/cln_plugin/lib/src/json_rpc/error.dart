@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'error.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Error {
   /// A Number that indicates the error type that occurred.
   int code;
@@ -22,5 +24,5 @@ class Error {
 
   /// This function converts a generated class object back to
   /// a JSON HashMap.
-  Map<String, dynamic> toJson() => _$ErrorToJson(this);
+  String toJson() => jsonEncode(_$ErrorToJson(this));
 }

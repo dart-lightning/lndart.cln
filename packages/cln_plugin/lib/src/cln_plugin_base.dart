@@ -4,12 +4,13 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_plugin/src/json_rpc/error.dart';
 import 'package:cln_plugin/src/json_rpc/request.dart';
+import 'package:cln_plugin/src/json_rpc/response.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
-import 'package:cln_plugin/src/rpc_method/types/feature.dart';
 
 import 'icln_plugin_base.dart';
 import 'json_rpc/response.dart';
@@ -28,24 +29,19 @@ class Plugin implements CLNPlugin {
   Set<String> hooks = {};
 
   /// FeatureBits for announcements of featurebits in protocol
-  late Feature features;
+  HashMap<String, Object> features = HashMap();
 
   /// Boolean to mark dynamic management of plugin
-  bool dynamic = false;
+  bool dynamic;
 
   /// Custom notifications map
   HashMap<String, RPCCommand> notifications = HashMap();
 
-  Plugin({bool dynamic = false});
+  Plugin({this.dynamic = false});
 
   @override
-  void registerFeature(
-      {required String node,
-      required String channel,
-      required String init,
-      required String invoice}) {
-    features =
-        Feature(node: node, channel: channel, init: init, invoice: invoice);
+  void registerFeature({required String name, required String value}) {
+    features[name] = value;
   }
 
   @override

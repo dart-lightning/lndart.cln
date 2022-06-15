@@ -12,8 +12,18 @@ Error _$ErrorFromJson(Map<String, dynamic> json) => Error(
       data: json['data'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$ErrorToJson(Error instance) => <String, dynamic>{
-      'code': instance.code,
-      'message': instance.message,
-      'data': instance.data,
-    };
+Map<String, dynamic> _$ErrorToJson(Error instance) {
+  final val = <String, dynamic>{
+    'code': instance.code,
+    'message': instance.message,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  return val;
+}

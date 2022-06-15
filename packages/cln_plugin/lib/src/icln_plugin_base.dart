@@ -3,11 +3,7 @@ import 'package:cln_plugin/cln_plugin.dart';
 abstract class CLNPlugin {
   void start();
 
-  void registerFeature(
-      {required String node,
-      required String channel,
-      required String init,
-      required String invoice});
+  void registerFeature({required String name, required String value});
 
   void registerOption(
       {required String name,

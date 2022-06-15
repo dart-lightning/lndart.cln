@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'error.dart';
 
 part 'response.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Response {
   /// A String specifying the version of the JSON-RPC protocol.
   /// MUST be exactly "2.0".
@@ -34,5 +36,5 @@ class Response {
 
   /// This function converts a generated class object back to
   /// a JSON HashMap.
-  Map<String, dynamic> toJson() => _$ResponseToJson(this);
+  String toJson() => jsonEncode(_$ResponseToJson(this));
 }
