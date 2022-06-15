@@ -7,7 +7,7 @@ part 'response.g.dart';
 class Response {
   /// A String specifying the version of the JSON-RPC protocol.
   /// MUST be exactly "2.0".
-  String jsonrpc;
+  String jsonrpc = "2.0";
 
   /// This structure contains additional information about the
   /// result returned from the function.
@@ -21,11 +21,11 @@ class Response {
   int id;
 
   /// A constructor for creating a new class instance.
-  Response(
-      {required this.jsonrpc,
-      required this.result,
-      required this.error,
-      required this.id});
+  Response({
+    required this.id,
+    this.result,
+    this.error,
+  });
 
   /// This factory function connects to the generator function
   /// to create the class.

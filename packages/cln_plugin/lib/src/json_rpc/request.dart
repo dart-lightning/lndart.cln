@@ -6,7 +6,7 @@ part 'request.g.dart';
 class Request {
   /// A String specifying the version of the JSON-RPC protocol.
   /// MUST be exactly "2.0".
-  String jsonrpc;
+  String jsonrpc = "2.0";
 
   /// An identifier established by the Client.
   /// Since core lightning uses int, we will enforce this type omitting
@@ -18,14 +18,10 @@ class Request {
 
   /// A map that holds the parameter values to be used during
   /// the invocation of the method.
-  Map<String, dynamic>? params;
+  Map<String, dynamic> params;
 
   /// A constructor for creating a new class instance.
-  Request(
-      {required this.jsonrpc,
-      required this.method,
-      required this.id,
-      required this.params});
+  Request({required this.id, required this.method, required this.params});
 
   /// This factory function connects to the generator function
   /// to create the class.

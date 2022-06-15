@@ -14,7 +14,7 @@ class Error {
   Map<String, dynamic>? data;
 
   /// A constructor for creating a new class instance.
-  Error({required this.code, required this.message, required this.data});
+  Error({required this.code, required this.message, this.data});
 
   /// This factory function connects to the generator function
   /// to create the class.
