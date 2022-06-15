@@ -7,13 +7,12 @@ part of 'response.dart';
 // **************************************************************************
 
 Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
-      jsonrpc: json['jsonrpc'] as String,
+      id: json['id'] as int,
       result: json['result'] as Map<String, dynamic>?,
       error: json['error'] == null
           ? null
           : Error.fromJson(json['error'] as Map<String, dynamic>),
-      id: json['id'] as int,
-    );
+    )..jsonrpc = json['jsonrpc'] as String;
 
 Map<String, dynamic> _$ResponseToJson(Response instance) => <String, dynamic>{
       'jsonrpc': instance.jsonrpc,
