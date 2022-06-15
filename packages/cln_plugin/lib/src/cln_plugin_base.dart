@@ -4,7 +4,9 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_plugin/src/json_rpc/error.dart';
 import 'package:cln_plugin/src/json_rpc/request.dart';
+import 'package:cln_plugin/src/json_rpc/response.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
@@ -91,12 +93,24 @@ class Plugin implements CLNPlugin {
   /// to core lightning.
   Future<Map<String, Object>> getManifest(
       Plugin plugin, Map<String, Object> request) {
-    return Future.value({});
+    // TODO: add some unit test to check if the format it is correct!
+    var response = HashMap<String, Object>();
+    response["options"] = plugin.options.map((opt) => opt.toMap()).toList();
+    response["rpcmethods"] = plugin.rpcMethods.values
+        .where((rpc) => rpc.name != "init" && rpc.name != "getmanifest")
+        .map((rpc) => rpc.toMap())
+        .toList();
+    response["subscriptions"] = plugin.subscriptions;
+    response["hooks"] = plugin.hooks.toList();
+    response["notifications"] = [];
+    response["dynamic"] = plugin.dynamic;
+    return Future.value(response);
   }
 
   /// init method used to answer to configure the plugin with the core lightning
   /// configuration.
   Future<Map<String, Object>> init(Plugin plugin, Map<String, Object> request) {
+    ///
     return Future.value({});
   }
 
@@ -132,15 +146,12 @@ class Plugin implements CLNPlugin {
           continue;
         }
         var jsonRequest = Request.fromJson(jsonDecode(messageSocket));
-
-        /// FIXME: read the json request
         try {
           var response = await _call(jsonRequest.method, jsonRequest.params);
-
-          print(Response(id: jsonRequest.id, result: response).toJson());
-        } catch (ex, stacktrace) {
-          /// Fill the Response with the error != null
-          stderr.write(stacktrace);
+          print("${Response(id: jsonRequest.id, result: response).toJson()}\n");
+        } catch (ex) {
+          print(
+              "${Response(id: jsonRequest.id, error: Error(code: -1, message: ex.toString())).toJson()}\n");
         }
       }
     } catch (error, stacktrace) {
