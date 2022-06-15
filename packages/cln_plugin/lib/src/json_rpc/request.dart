@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'request.g.dart';
@@ -34,5 +36,5 @@ class Request {
 
   /// This function converts a generated class object back to
   /// a JSON HashMap.
-  Map<String, dynamic> toJson() => _$RequestToJson(this);
+  String toJson() => jsonEncode(_$RequestToJson(this));
 }
