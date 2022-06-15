@@ -141,7 +141,8 @@ class Plugin implements CLNPlugin {
 
         /// FIXME: read the json request
         try {
-          var response = await _call(jsonRequest.method, jsonRequest.params as Map<String, Object>);
+          var response = await _call(
+              jsonRequest.method, jsonRequest.params as Map<String, Object>);
           File('/home/swapnil/clightning4j/p_log.txt')
               .writeAsString(response.toString());
           print(Response(id: jsonRequest.id, result: response).toJson());
