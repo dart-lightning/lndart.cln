@@ -27,4 +27,6 @@ abstract class CLNPlugin {
       required String description,
       required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
           callback});
+
+  dynamic getOpt({required String key});
 }

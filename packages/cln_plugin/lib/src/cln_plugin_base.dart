@@ -37,6 +37,10 @@ class Plugin implements CLNPlugin {
 
   Plugin({this.dynamic = false});
 
+  Map<String, Object> _pluginOption = {};
+
+  Map<String, Object> configuration = {};
+
   @override
   void registerFeature({required String name, required String value}) {
     features[name] = value;
@@ -49,12 +53,12 @@ class Plugin implements CLNPlugin {
       required String def,
       required String description,
       required bool deprecated}) {
-    options = Option(
+    options.add(Option(
         name: name,
         type: type,
         def: def,
         description: description,
-        deprecated: deprecated) as List<Option>;
+        deprecated: deprecated));
   }
 
   @override
@@ -102,13 +106,17 @@ class Plugin implements CLNPlugin {
     response["hooks"] = plugin.hooks.toList();
     response["notifications"] = [];
     response["dynamic"] = plugin.dynamic;
+
     return Future.value(response);
   }
 
   /// init method used to answer to configure the plugin with the core lightning
   /// configuration.
   Future<Map<String, Object>> init(Plugin plugin, Map<String, Object> request) {
-    ///
+    // TODO: store the configuration inside the plugin (it is inside the request)
+    _pluginOption = request['options'] as Map<String, Object>;
+    configuration = request['configuration'] as Map<String, Object>;
+    // TODO: get the option value inside the request and assign it to the options in some way!
     return Future.value({});
   }
 
@@ -137,7 +145,12 @@ class Plugin implements CLNPlugin {
     var result = HashMap<String, Object>();
     result["level"] = level;
     result["message"] = message;
-    print("${Response(id: 1, result: result).toJson()}\n");
+    stdout.write(jsonEncode(Response(id: 40, result: result).toJson()));
+  }
+
+  @override
+  getOpt({required String key}) {
+    return _pluginOption[key];
   }
 
   @override
