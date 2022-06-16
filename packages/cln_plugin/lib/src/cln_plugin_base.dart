@@ -42,7 +42,7 @@ class Plugin implements CLNPlugin {
   /// that core lightning send to us.
   Map<String, Object> configuration = {};
 
-  Plugin({this.dynamic = false});
+  Plugin({this.dynamic = true});
 
   @override
   void registerFeature({required String name, required String value}) {
@@ -55,7 +55,7 @@ class Plugin implements CLNPlugin {
       required String type,
       required String def,
       required String description,
-      required bool deprecated}) {
+      bool deprecated = false}) {
     options[name] = Option(
         name: name,
         type: type,
@@ -125,9 +125,12 @@ class Plugin implements CLNPlugin {
     return Future.value({});
   }
 
+  /// configurePlugin is used to configure the plugin that extend this class
+  void configurePlugin() {}
+
   // init plugin used to register the rpc method required by the plugin
   // life cycle
-  void configurePlugin() {
+  void _defaultPluginConfiguration() {
     rpcMethods["getmanifest"] =
         GetManifest(callback: (Plugin plugin, Map<String, Object> request) {
       return getManifest(plugin, request);
@@ -135,6 +138,7 @@ class Plugin implements CLNPlugin {
     rpcMethods["init"] = InitMethod(
         callback: (Plugin plugin, Map<String, Object> request) =>
             init(plugin, request));
+    configurePlugin();
   }
 
   Future<Map<String, Object>> _call(
@@ -160,7 +164,7 @@ class Plugin implements CLNPlugin {
 
   @override
   void start() async {
-    configurePlugin();
+    _defaultPluginConfiguration();
     try {
       String? messageSocket;
 
