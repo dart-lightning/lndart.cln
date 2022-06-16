@@ -1,0 +1,32 @@
+/// This file contains some integration test to be able to the plugin implemented
+/// from core lightning in dart inside the example directory.
+///
+/// In this way we can be sure that the plugin ran as expected, and there is no
+/// regression introduced with some PRs.
+
+import 'dart:io';
+import 'package:test/test.dart';
+import 'package:clightning_rpc/clightning_rpc.dart';
+
+void main() {
+  var env = Platform.environment;
+  var rpcPath = env['RPC_PATH']!;
+  group('A group of test to connect the test cln plugin', () {
+    RPCClient client = RPCClient();
+    client.connect(rpcPath);
+    setUp(() {});
+
+    test('Call foo method inside of the plugin example', () async {
+      var response = await client.call('foo');
+      expect(response['language'].toString().toLowerCase(), 'dart');
+    });
+/*
+ Uncomment when the https://github.com/dart-lightning/lndart.clightning/pull/42 is merged
+    test('Call fist_method inside the plugin', () async {
+      var response = await client.call('first_method');
+      expect(response['foo_opt'].toString().toLowerCase(), 'hello');
+    });
+
+ */
+  });
+}
