@@ -21,3 +21,5 @@ docker/sandbox/lightning_dir_one/lightningd-regtest.pid
 *.info
 
 packages/cln_plugin/cln_dart
+
+packages/cln_plugin/cln_class_dart
