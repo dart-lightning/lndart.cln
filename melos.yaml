@@ -44,6 +44,16 @@ scripts:
     env:
       MELOS_TEST: true
 
+  build_plugin:
+    description: Build the plugin used inside the tests.
+    run: melos exec --concurrency=2 -- "make examples"
+    select-package:
+      scope: "cln_plugin"
+      dir-exists:
+        - "test/"
+    env:
+      MELOS_TEST: true
+
   client_test_coverage:
     description: Run tests in a specific package.
     run: melos exec --concurrency=2 -- "dart run test --coverage="coverage" && dart run coverage:format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib"
