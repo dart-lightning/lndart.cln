@@ -2,7 +2,8 @@ CC=dart pub global run melos
 CC_TEST=spec
 CC_CHANGELOG=dart pub global run changelog_cmd
 
-default: analyze check
+default: analyze
+	$(CC) run build_plugin --no-select
 
 dep:
 	dart pub global activate melos;
@@ -49,7 +50,7 @@ changelog_plugin:
 
 changelog: changelog_rpc changelog_plugin
 
-ci: dep ci_check_rpc
+ci: dep ci_check_rpc check_plugin
 
 clean:
 	$(CC) clean
