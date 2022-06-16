@@ -13,55 +13,30 @@ scripts:
     select-package:
 
   rpc_analyze:
-    run: melos exec -c 1 -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    run: melos exec -c 1 --scope="rpc" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
     description: Run dart analyzer in a specific package.
-    select-package:
-      scope: "rpc"
 
   plugin_analyze:
-    run: melos exec -c 1 -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    run: melos exec -c 1 --scope="rpc" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
     description: Run dart analyzer in a specific package.
-    select-package:
-      scope: "rpc"
 
-  test:
+  plugin_test:
     description: Run tests in a specific package.
-    run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
-    select-package:
-      scope: "cln_plugin"
-      dir-exists:
-        - "test/"
+    run: melos exec --concurrency=2 --scope="cln_plugin" -- "dart pub get && dart pub run test"
     env:
       MELOS_TEST: true
 
   rpc_test:
     description: Run tests in a specific package.
-    run: melos exec --concurrency=2 -- "dart pub get && dart pub run test"
-    select-package:
-      scope: "rpc"
-      dir-exists:
-        - "test/"
+    run: melos exec --concurrency=2 --scope="rpc" -- "dart pub get && dart pub run test"
     env:
       MELOS_TEST: true
 
   build_plugin:
     description: Build the plugin used inside the tests.
-    run: melos exec --concurrency=2 -- "make examples"
-    select-package:
-      scope: "cln_plugin"
-      dir-exists:
-        - "test/"
+    run: melos exec --concurrency=2 --scope="cln_plugin" -- "make examples"
     env:
       MELOS_TEST: true
 
-  client_test_coverage:
-    description: Run tests in a specific package.
-    run: melos exec --concurrency=2 -- "dart run test --coverage="coverage" && dart run coverage:format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib"
-    select-package:
-      scope: "graphql"
-      dir-exists:
-        - "test/"
-    env:
-      MELOS_TEST: true
 
   format: dart format -o write .
