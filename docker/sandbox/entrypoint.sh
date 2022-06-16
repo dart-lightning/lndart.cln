@@ -1,11 +1,12 @@
 #!/bin/bash
 ./run-bitcoin.sh
 ./generate-block-bitcoin.sh
-cd code || return
+cd code || exit 1
 make dep
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 make
-cd .. || return
+cd .. || exit 1
 ./run-clightning.sh
-cd code || return
-RPC_PATH=/workdir/lightning_dir_two/regtest/lightning-rpc make ci
+cd code || exit 1
+ls -la
+make RPC_PATH=/workdir/lightning_dir_one/regtest/lightning-rpc ci

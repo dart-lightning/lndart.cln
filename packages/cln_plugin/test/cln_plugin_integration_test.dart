@@ -12,11 +12,11 @@ void main() {
   var env = Platform.environment;
   var rpcPath = env['RPC_PATH']!;
   group('A group of test to connect the test cln plugin', () {
-    RPCClient client = RPCClient();
-    client.connect(rpcPath);
     setUp(() {});
 
     test('Call foo method inside of the plugin example', () async {
+      var client = RPCClient();
+      client.connect(rpcPath);
       var response = await client.call('foo');
       expect(response['language'].toString().toLowerCase(), 'dart');
     });
