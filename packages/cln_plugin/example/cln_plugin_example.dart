@@ -10,5 +10,11 @@ void main() {
             "msg": "Hello",
             "language": "dart",
           }));
+  plugin.registerOption(
+      name: 'greeting',
+      type: 'string',
+      def: "World",
+      description: "What name should I call you?",
+      deprecated: false);
   plugin.start();
 }
