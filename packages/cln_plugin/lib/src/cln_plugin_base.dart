@@ -122,7 +122,7 @@ class Plugin implements CLNPlugin {
 
   // init plugin used to register the rpc method required by the plugin
   // life cycle
-  void _initPlugin() {
+  void configurePlugin() {
     rpcMethods["getmanifest"] =
         GetManifest(callback: (Plugin plugin, Map<String, Object> request) {
       return getManifest(plugin, request);
@@ -155,7 +155,7 @@ class Plugin implements CLNPlugin {
 
   @override
   void start() async {
-    _initPlugin();
+    configurePlugin();
     try {
       String? messageSocket;
 
