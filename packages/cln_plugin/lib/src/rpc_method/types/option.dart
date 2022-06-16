@@ -14,6 +14,8 @@ class Option {
   /// mark deprecated or not
   bool deprecated;
 
+  dynamic value;
+
   Option(
       {required this.name,
       required this.type,

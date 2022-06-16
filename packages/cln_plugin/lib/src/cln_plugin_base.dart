@@ -1,5 +1,3 @@
-// TODO: Put public facing types in this file.
-
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
@@ -13,33 +11,38 @@ import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
 
+/// UnixSocket plugin implementation is the default plugin API used to
+/// develop custom plugin for core lightning in dart.
 class Plugin implements CLNPlugin {
-  /// List of methods exposed
+  /// All the rpc method that the plugin expose.
   HashMap<String, RPCCommand> rpcMethods = HashMap();
 
-  /// List of Subscriptions
+  /// All the rpc call where the plugin is subscribed.
   List<String> subscriptions = [];
 
-  /// List of Options
-  List<Option> options = [];
+  /// The option that the plugin use to configure itself
+  /// from the user setting.
+  Map<String, Option> options = {};
 
-  /// List of Hooks
+  /// All the hooks where the plugin is subscribed.
   Set<String> hooks = {};
 
-  /// FeatureBits for announcements of featurebits in protocol
+  /// Featurebis that this plugin will enable when is running
   HashMap<String, Object> features = HashMap();
 
-  /// Boolean to mark dynamic management of plugin
+  /// Mark the plugin as dynamic means that can be ran when
+  /// core lightning is already running, if false the plugin can
+  /// not be run without stop core lightning
   bool dynamic;
 
-  /// Custom notifications map
+  /// All the notification where the plugin is subscribed.
   HashMap<String, RPCCommand> notifications = HashMap();
 
-  Plugin({this.dynamic = false});
-
-  Map<String, Object> _pluginOption = {};
-
+  /// plugin configuration that contains all the information
+  /// that core lightning send to us.
   Map<String, Object> configuration = {};
+
+  Plugin({this.dynamic = false});
 
   @override
   void registerFeature({required String name, required String value}) {
@@ -53,12 +56,12 @@ class Plugin implements CLNPlugin {
       required String def,
       required String description,
       required bool deprecated}) {
-    options.add(Option(
+    options[name] = Option(
         name: name,
         type: type,
         def: def,
         description: description,
-        deprecated: deprecated));
+        deprecated: deprecated);
   }
 
   @override
@@ -97,7 +100,8 @@ class Plugin implements CLNPlugin {
       Plugin plugin, Map<String, Object> request) {
     // TODO: add some unit test to check if the format it is correct!
     var response = HashMap<String, Object>();
-    response["options"] = plugin.options.map((opt) => opt.toMap()).toList();
+    response["options"] =
+        plugin.options.values.map((opt) => opt.toMap()).toList();
     response["rpcmethods"] = plugin.rpcMethods.values
         .where((rpc) => rpc.name != "init" && rpc.name != "getmanifest")
         .map((rpc) => rpc.toMap())
@@ -114,7 +118,8 @@ class Plugin implements CLNPlugin {
   /// configuration.
   Future<Map<String, Object>> init(Plugin plugin, Map<String, Object> request) {
     // TODO: store the configuration inside the plugin (it is inside the request)
-    _pluginOption = request['options'] as Map<String, Object>;
+    var opts = request['options'] as Map;
+    opts.forEach((optsName, optValue) => options[optsName]!.value = optValue);
     configuration = request['configuration'] as Map<String, Object>;
     // TODO: get the option value inside the request and assign it to the options in some way!
     return Future.value({});
@@ -150,7 +155,7 @@ class Plugin implements CLNPlugin {
 
   @override
   getOpt({required String key}) {
-    return _pluginOption[key];
+    return options[key]?.value;
   }
 
   @override
