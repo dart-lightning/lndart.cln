@@ -20,13 +20,12 @@ void main() {
       var response = await client.call('foo');
       expect(response['language'].toString().toLowerCase(), 'dart');
     });
-/*
- Uncomment when the https://github.com/dart-lightning/lndart.clightning/pull/42 is merged
+
     test('Call fist_method inside the plugin', () async {
+      var client = RPCClient();
+      client.connect(rpcPath);
       var response = await client.call('first_method');
       expect(response['foo_opt'].toString().toLowerCase(), 'hello');
     });
-
- */
   });
 }
