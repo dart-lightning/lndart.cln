@@ -25,9 +25,9 @@ class Plugin implements CLNPlugin {
   /// Featurebits that this plugin will enable when is running
   HashMap<String, Object> features = HashMap();
 
-  /// Mark the plugin as dynamic means that can be ran when
+  /// Marking the plugin as dynamic means that it can be run while
   /// core lightning is already running, if false the plugin can
-  /// not be run without stop core lightning
+  /// only be run when core lightning is restarted.
   bool dynamic;
 
   /// All the notification where the plugin is subscribed.
@@ -36,8 +36,8 @@ class Plugin implements CLNPlugin {
   /// All the notification that the plugin is able to generate.
   HashMap<String, RPCNotification> notifications = HashMap();
 
-  /// plugin configuration that contains all the information
-  /// that core lightning send to us.
+  /// Plugin configuration contains all the information that core
+  /// lightning sends to us.
   Map<String, Object> configuration = {};
 
   Future<Map<String, Object>> Function(Plugin)? onInit;
@@ -64,6 +64,8 @@ class Plugin implements CLNPlugin {
         deprecated: deprecated);
   }
 
+  /// This method is used to register a RPC method with the plugin that could be
+  /// run by the user.
   @override
   void registerRPCMethod(
       {required String name,
@@ -187,13 +189,18 @@ class Plugin implements CLNPlugin {
     return options[key]?.value;
   }
 
+  /// This method controls the start of the plugin. The plugin's start() method
+  /// is used to initialize the default configuration and receive the standard
+  /// input from the core lightning and decoding the JSON from the input message
+  /// and preparing the plugin object which will allow for a seamless communication
+  /// between core lightning and the plugin on top of the JSONRPCv2.0 protocol.
   @override
   void start() async {
     _defaultPluginConfiguration();
     try {
       String? messageSocket;
 
-      /// TODO move this in async way
+      /// TODO: move this in async way
       while ((messageSocket = stdin.readLineSync()) != null) {
         // Already checked is stdin is not null, why trim and check again??
         if (messageSocket!.trim().isEmpty) {

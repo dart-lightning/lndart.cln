@@ -7,6 +7,8 @@ import 'package:cln_plugin/cln_plugin.dart';
 /// code, but also to keep the code clean a simple to read.
 
 class MyPlugin extends Plugin {
+  /// This is a method that is registered to be called by the plugin
+  /// in its runtime.
   Future<Map<String, Object>> firstMethod(
       Plugin plugin, Map<String, Object> request) {
     log(level: "info", message: "Calling rpc");
@@ -15,6 +17,8 @@ class MyPlugin extends Plugin {
     });
   }
 
+  /// This is a method that is subscribed to be called in response to
+  /// a notification emitted by core lightning.
   Future<Map<String, Object>> notifyMethod(
       Plugin plugin, Map<String, Object> request) {
     plugin.log(level: 'debug', message: 'Notification received!');
@@ -37,11 +41,14 @@ class MyPlugin extends Plugin {
         description: "This is an example of custom rpc method",
         callback: (plugin, request) => firstMethod(plugin, request));
 
+    /// This is the standard way to subscribe to a core lightning
+    /// notification.
     registerSubscriptions(event: 'connect', callback: notifyMethod);
   }
 }
 
 void main() {
+  /// Plugin initialization.
   var plugin = MyPlugin();
   plugin.start();
 }
