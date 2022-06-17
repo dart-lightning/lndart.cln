@@ -1,5 +1,11 @@
 import 'package:cln_plugin/cln_plugin.dart';
 
+/// N.B. This style of developing a plugin is the suggested one
+/// for small plugins.
+///
+/// This involve the possibility to develop in a more OOP style the
+/// code, but also to keep the code clean a simple to read.
+
 void main() {
   var plugin = Plugin(
       dynamic: true,
