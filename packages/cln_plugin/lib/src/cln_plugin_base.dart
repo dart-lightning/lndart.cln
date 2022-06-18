@@ -42,7 +42,9 @@ class Plugin implements CLNPlugin {
   /// that core lightning send to us.
   Map<String, Object> configuration = {};
 
-  Plugin({this.dynamic = true});
+  Future<Map<String, Object>> Function(Plugin)? onInit;
+
+  Plugin({this.onInit, this.dynamic = true});
 
   @override
   void registerFeature({required String name, required String value}) {
@@ -116,17 +118,25 @@ class Plugin implements CLNPlugin {
 
   /// init method used to answer to configure the plugin with the core lightning
   /// configuration.
-  Future<Map<String, Object>> init(Plugin plugin, Map<String, Object> request) {
-    // TODO: store the configuration inside the plugin (it is inside the request)
+  Future<Map<String, Object>> init(
+      Plugin plugin, Map<String, Object> request) async {
     var opts = request['options'] as Map;
     opts.forEach((optsName, optValue) => options[optsName]!.value = optValue);
     configuration = request['configuration'] as Map<String, Object>;
-    // TODO: get the option value inside the request and assign it to the options in some way!
-    return Future.value({});
+    return await __onInit(plugin);
   }
 
   /// configurePlugin is used to configure the plugin that extend this class
   void configurePlugin() {}
+
+  /// Unwrapping the logic of the onInit callback, and if it is defined run it
+  /// otherwise return a empty object.
+  Future<Map<String, Object>> __onInit(Plugin plugin) async {
+    if (onInit != null) {
+      return await onInit!(plugin);
+    }
+    return Future.value({});
+  }
 
   // init plugin used to register the rpc method required by the plugin
   // life cycle

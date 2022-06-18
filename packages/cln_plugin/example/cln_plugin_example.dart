@@ -1,7 +1,15 @@
 import 'package:cln_plugin/cln_plugin.dart';
 
 void main() {
-  var plugin = Plugin(dynamic: true);
+  var plugin = Plugin(
+      dynamic: true,
+      onInit: (plugin) {
+        plugin.log(
+            level: "info",
+            message:
+                "RPC path file is ${plugin.configuration['lightning-rpc']}");
+        return Future.value({});
+      });
   plugin.registerRPCMethod(
       name: "foo",
       usage: "",
