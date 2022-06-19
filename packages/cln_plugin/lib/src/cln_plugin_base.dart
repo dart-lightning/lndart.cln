@@ -2,10 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cln_common/cln_common.dart';
 import 'package:cln_plugin/src/icln_plugin_base.dart';
-import 'package:cln_plugin/src/json_rpc/error.dart';
-import 'package:cln_plugin/src/json_rpc/request.dart';
-import 'package:cln_plugin/src/json_rpc/response.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';

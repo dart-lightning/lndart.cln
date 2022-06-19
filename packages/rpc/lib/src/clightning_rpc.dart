@@ -1,19 +1,6 @@
 import 'utils/logger_manager.dart';
 import 'utils/unix_rpc_client.dart';
-
-/// Client interface to create a (c-)lightning client
-/// That can support different protocols.
-abstract class LightningClient {
-  // Connect interface to initialize the client
-  // with the correct protocol.
-  LightningClient connect(String url);
-
-  // Generic method to call a method in (c-)lightning
-  Future<Map<String, dynamic>> call(String method,
-      {Map<String, dynamic> params = const {}});
-
-  void close();
-}
+import 'package:cln_common/cln_common.dart';
 
 class RPCClient implements LightningClient {
   late UnixRPCClient _client;
