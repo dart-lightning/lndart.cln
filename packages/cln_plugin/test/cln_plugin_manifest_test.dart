@@ -89,8 +89,6 @@ void main() {
       // Adding an empty request and generating a manifest.
       var getManifest = await plugin.getManifest(plugin, {});
 
-      print(getManifest);
-
       expect(getManifest.containsKey('rpcmethods'), true);
       expect(getManifest.containsKey('options'), true);
       expect(getManifest.containsKey('notifications'), true);
