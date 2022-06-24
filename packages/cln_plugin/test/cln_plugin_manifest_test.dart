@@ -13,6 +13,8 @@ void main() {
       expect(plugin.dynamic.runtimeType, bool);
       expect(plugin.dynamic, true);
     });
+    test('Property test - rpcMethods', () async {
+    // Create also the plugin there :)
     plugin.registerRPCMethod(
         name: "foo",
         usage: "this specifies the usage",
@@ -21,7 +23,6 @@ void main() {
               "msg": "Hello",
               "language": "dart",
             }));
-    test('Property test - rpcMethods', () async {
       // We added a RPC Method, we expect the class property rpcMethods to be non empty.
       expect(plugin.rpcMethods.isNotEmpty, true);
 
@@ -34,23 +35,22 @@ void main() {
 
       // We expect the deprecation of the plugin to be set as false by default
       expect(plugin.rpcMethods["foo"]!.deprecated, false);
-
-      // We expect the long description of the plugin to be same as the description if not specified
-      expect(plugin.rpcMethods["foo"]!.longDescription,
-          plugin.rpcMethods["foo"]!.description);
-
+      
       // We expect the usage of the plugin to be set as the string in the registerRPCMethod()
       expect(plugin.rpcMethods["foo"]!.usage.toLowerCase(),
           "this specifies the usage".toLowerCase());
     });
 
+    
+    test('Property test - options', () async {
+    // create the plugin here too
+    
     plugin.registerOption(
         name: 'greeting',
         type: 'string',
         def: "World",
         description: "What name should I call you?",
         deprecated: false);
-    test('Property test - options', () async {
       // We added a RPC Option, we expect the class property options to be non empty.
       expect(plugin.options.isNotEmpty, true);
 
