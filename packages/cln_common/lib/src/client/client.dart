@@ -14,7 +14,7 @@ abstract class LightningClient {
   LightningClient connect(String url);
 
   Future<T> call<R extends Serializable, T>(
-      {required String method, required R payload, T Function(Map)? onDecode});
+      {required String method, required R params, T Function(Map)? onDecode});
 
   // Generic method to call a method in (c-)lightning
   Future<Map<String, dynamic>> simpleCall(String method,
