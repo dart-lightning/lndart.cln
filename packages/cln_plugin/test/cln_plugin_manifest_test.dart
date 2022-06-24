@@ -3,26 +3,31 @@ import 'package:test/test.dart';
 
 void main() {
   group('Manifest test: ', () {
-    var plugin = Plugin(
-        dynamic: true,
-        onInit: (plugin) {
-          return Future.value({});
-        });
     test('Property test - dynamic', () {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
       // We set dynamic as true in the plugin initialization, let's test the property.
       expect(plugin.dynamic.runtimeType, bool);
       expect(plugin.dynamic, true);
     });
     test('Property test - rpcMethods', () async {
-    // Create also the plugin there :)
-    plugin.registerRPCMethod(
-        name: "foo",
-        usage: "this specifies the usage",
-        description: "an example of how register a RPC Method",
-        callback: (plugin, request) => Future.value(<String, Object>{
-              "msg": "Hello",
-              "language": "dart",
-            }));
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+
+      plugin.registerRPCMethod(
+          name: "foo",
+          usage: "this specifies the usage",
+          description: "an example of how register a RPC Method",
+          callback: (plugin, request) => Future.value(<String, Object>{
+                "msg": "Hello",
+                "language": "dart",
+              }));
       // We added a RPC Method, we expect the class property rpcMethods to be non empty.
       expect(plugin.rpcMethods.isNotEmpty, true);
 
@@ -35,22 +40,25 @@ void main() {
 
       // We expect the deprecation of the plugin to be set as false by default
       expect(plugin.rpcMethods["foo"]!.deprecated, false);
-      
+
       // We expect the usage of the plugin to be set as the string in the registerRPCMethod()
       expect(plugin.rpcMethods["foo"]!.usage.toLowerCase(),
           "this specifies the usage".toLowerCase());
     });
 
-    
-    test('Property test - options', () async {
-    // create the plugin here too
-    
-    plugin.registerOption(
-        name: 'greeting',
-        type: 'string',
-        def: "World",
-        description: "What name should I call you?",
-        deprecated: false);
+    test('Property test - options', () {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+
+      plugin.registerOption(
+          name: 'greeting',
+          type: 'string',
+          def: "World",
+          description: "What name should I call you?",
+          deprecated: false);
       // We added a RPC Option, we expect the class property options to be non empty.
       expect(plugin.options.isNotEmpty, true);
 
@@ -70,6 +78,25 @@ void main() {
 
       // We expect the deprecation of the option to be false
       expect(plugin.options["greeting"]!.deprecated, false);
+    });
+
+    test('getManifest() Test', () async {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+      // Adding an empty request and generating a manifest.
+      var getManifest = await plugin.getManifest(plugin, {});
+
+      print(getManifest);
+
+      expect(getManifest.containsKey('rpcmethods'), true);
+      expect(getManifest.containsKey('options'), true);
+      expect(getManifest.containsKey('notifications'), true);
+      expect(getManifest.containsKey('dynamic'), true);
+      expect(getManifest.containsKey('hooks'), true);
+      expect(getManifest.containsKey('subscriptions'), true);
     });
   });
 }
