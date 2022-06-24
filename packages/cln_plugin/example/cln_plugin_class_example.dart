@@ -9,8 +9,9 @@ import 'package:cln_plugin/cln_plugin.dart';
 class MyPlugin extends Plugin {
   Future<Map<String, Object>> firstMethod(
       Plugin plugin, Map<String, Object> request) {
+    log(level: "info", message: "Calling rpc");
     return Future.value({
-      "foo_opt": getOpt(key: "foo_opt"),
+      "foo_opt": getOpt(key: "foo_opt") ?? "not found",
     });
   }
 
