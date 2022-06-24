@@ -120,9 +120,10 @@ class Plugin implements CLNPlugin {
   /// configuration.
   Future<Map<String, Object>> init(
       Plugin plugin, Map<String, Object> request) async {
-    var opts = request['options'] as Map;
+    var opts = Map.from(json.decode(json.encode(request['options'])));
     opts.forEach((optsName, optValue) => options[optsName]!.value = optValue);
-    configuration = request['configuration'] as Map<String, Object>;
+    configuration =
+        Map.from(json.decode(json.encode(request['configuration'])));
     return await __onInit(plugin);
   }
 
@@ -161,10 +162,12 @@ class Plugin implements CLNPlugin {
   }
 
   void log({required String level, required String message}) {
-    var result = HashMap<String, Object>();
-    result["level"] = level;
-    result["message"] = message;
-    stdout.write(jsonEncode(Response(id: 40, result: result).toJson()));
+    var payload = HashMap<String, Object>();
+    payload["level"] = level;
+    payload["message"] = message;
+    var logRequest =
+        json.encode(Request(method: "log", params: payload).toJson());
+    stdout.write(logRequest);
   }
 
   @override
@@ -194,13 +197,13 @@ class Plugin implements CLNPlugin {
           }
           var result = await _call(jsonRequest.method, param);
           var response = Response(id: jsonRequest.id, result: result).toJson();
-          stdout.write(jsonEncode(response));
+          stdout.write(json.encode(response));
         } catch (ex) {
           var response = Response(
                   id: jsonRequest.id,
                   error: Error(code: -1, message: ex.toString()))
               .toJson();
-          stdout.write(jsonEncode(response));
+          stdout.write(response);
         }
       }
     } catch (error, stacktrace) {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'request.g.dart';
@@ -8,7 +6,7 @@ part 'request.g.dart';
 class Request {
   /// A String specifying the version of the JSON-RPC protocol.
   /// MUST be exactly "2.0".
-  String? jsonrpc;
+  String jsonrpc = "2.0";
 
   /// An identifier established by the Client.
   /// Since core lightning uses int, we will enforce this type omitting
@@ -23,11 +21,7 @@ class Request {
   dynamic params;
 
   /// A constructor for creating a new class instance.
-  Request(
-      {this.id,
-      required this.method,
-      required this.params,
-      this.jsonrpc = "2.0"});
+  Request({this.id, required this.method, required this.params});
 
   /// This factory function connects to the generator function
   /// to create the class.
@@ -36,5 +30,5 @@ class Request {
 
   /// This function converts a generated class object back to
   /// a JSON HashMap.
-  String toJson() => jsonEncode(_$RequestToJson(this));
+  Map<String, dynamic> toJson() => _$RequestToJson(this);
 }
