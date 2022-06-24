@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cln_plugin/src/json_rpc/request.dart';
+import 'package:cln_common/cln_common.dart';
 import 'package:test/test.dart';
 
 void main() {
