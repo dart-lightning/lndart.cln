@@ -1,4 +1,3 @@
-import 'utils/logger_manager.dart';
 import 'utils/unix_rpc_client.dart';
 import 'package:cln_common/cln_common.dart';
 

@@ -7,13 +7,12 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dev_dependencies:
-  pedantic: ^1.10.0
   test: ^1.16.0
+  lints: ^2.0.0
 
 dependencies:
   json_rpc_2: ^3.0.1
   jsonrpc2: ^3.0.1
-  logger: ^1.0.0
   cln_common: ^0.0.1
 
 dependency_overrides:
