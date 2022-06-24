@@ -20,3 +20,5 @@ dev_dependencies:
 dependency_overrides:
   cln_common:
     path: ../cln_common
+  clightning_rpc:
+    path: ../rpc
