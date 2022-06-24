@@ -17,14 +17,14 @@ void main() {
     test('Call foo method inside of the plugin example', () async {
       var client = RPCClient();
       client.connect(rpcPath);
-      var response = await client.call('foo');
+      var response = await client.simpleCall('foo');
       expect(response['language'].toString().toLowerCase(), 'dart');
     });
 
     test('Call fist_method inside the plugin', () async {
       var client = RPCClient();
       client.connect(rpcPath);
-      var response = await client.call('first_method');
+      var response = await client.simpleCall('first_method');
       expect(response['foo_opt'].toString().toLowerCase(), 'hello');
     });
   });
