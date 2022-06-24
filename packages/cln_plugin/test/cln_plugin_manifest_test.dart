@@ -29,7 +29,7 @@ void main() {
       // We added a RPC Method, we expect the class property rpcMethods to be non empty.
       expect(plugin.rpcMethods.isNotEmpty, true);
 
-      // We expect the name of the plugin to be set as foo, as in the registerRPCMethod()
+      // We expect the name of the plugin to be set as "foo"
       expect(plugin.rpcMethods["foo"]!.name.toLowerCase(), "foo");
 
       // We expect the description of the plugin to be set as the string in the registerRPCMethod()
@@ -46,6 +46,34 @@ void main() {
       // We expect the usage of the plugin to be set as the string in the registerRPCMethod()
       expect(plugin.rpcMethods["foo"]!.usage.toLowerCase(),
           "this specifies the usage".toLowerCase());
+    });
+
+    plugin.registerOption(
+        name: 'greeting',
+        type: 'string',
+        def: "World",
+        description: "What name should I call you?",
+        deprecated: false);
+    test('Property test - options', () async {
+      // We added a RPC Option, we expect the class property options to be non empty.
+      expect(plugin.options.isNotEmpty, true);
+
+      // We expect the name of the option to be set as "greeting"
+      expect(plugin.options["greeting"]!.name, "greeting");
+
+      // We expect the type of the option to be "string"
+      expect(plugin.options["greeting"]!.type.toLowerCase(), "string");
+
+      // We expect the default value of the option to be set as "World"
+      expect(
+          plugin.options["greeting"]!.def.toLowerCase(), "World".toLowerCase());
+
+      // We expect the name of the option to be set as the string in the registerOption()
+      expect(plugin.options["greeting"]!.description.toLowerCase(),
+          "What name should I call you?".toLowerCase());
+
+      // We expect the deprecation of the option to be false
+      expect(plugin.options["greeting"]!.deprecated, false);
     });
   });
 }
