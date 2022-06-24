@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:clightning_rpc/src/utils/logger_manager.dart';
+import 'package:cln_common/cln_common.dart';
 import 'package:jsonrpc2/jsonrpc2.dart';
 
 class UnixRPCClient extends ServerProxyBase {
@@ -20,8 +20,9 @@ class UnixRPCClient extends ServerProxyBase {
     socket.listen((event) {
       LogManager.getInstance.debug('Event received is ${utf8.decode(event)}');
       completer.complete(utf8.decode(event));
-      return null;
-    }, onDone: () => LogManager.getInstance.info('End JSON RPC Stream'));
+    },
+        onDone: () => LogManager.getInstance.debug('End JSON RPC Stream'),
+        onError: (err) => LogManager.getInstance.error(err));
     return completer.future;
   }
 }

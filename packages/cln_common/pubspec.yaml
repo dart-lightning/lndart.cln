@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   json_annotation: ^4.5.0
+  logger: ^1.0.0
+
 
 dev_dependencies:
   lints: ^2.0.0
