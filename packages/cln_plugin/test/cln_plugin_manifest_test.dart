@@ -1,8 +1,4 @@
-import 'dart:collection';
-import 'dart:math';
-
 import 'package:cln_plugin/src/cln_plugin_base.dart';
-import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:test/test.dart';
 
 void main() {
