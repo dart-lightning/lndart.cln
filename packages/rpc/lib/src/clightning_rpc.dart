@@ -13,7 +13,7 @@ class RPCClient implements LightningClient {
   }
 
   @override
-  Future<Map<String, dynamic>> call(String method,
+  Future<Map<String, dynamic>> simpleCall(String method,
       {Map<String, dynamic> params = const {}}) async {
     var response = await _client.call(method, params);
     LogManager.getInstance
@@ -23,4 +23,18 @@ class RPCClient implements LightningClient {
 
   @override
   void close() async {}
+
+  @override
+  Future<T> call<R extends Serializable, T>(
+      {required String method,
+      required R params,
+      T Function(Map)? onDecode}) async {
+    var response = await _client.call(method, params);
+    LogManager.getInstance
+        .debug('Response from RPC is : ${response.toString()}');
+    if (onDecode != null) {
+      return onDecode(response);
+    }
+    return response;
+  }
 }

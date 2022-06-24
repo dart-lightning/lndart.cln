@@ -19,7 +19,7 @@ void main() {
       var client = RPCClient();
       client.connect(rpcPath);
       expect(client, isNotNull);
-      var response = await client.call('getinfo');
+      var response = await client.simpleCall('getinfo');
       expect(response['network'], 'regtest');
       client.close();
     });
@@ -35,12 +35,12 @@ void main() {
       params['label'] = 'from-dart';
       params['description'] = 'This is a unit test';
 
-      await client.call('invoice', params: params);
+      await client.simpleCall('invoice', params: params);
 
       params = <String, dynamic>{};
       params['label'] = 'from-dart';
       params['status'] = 'unpaid';
-      await client.call('delinvoice', params: params);
+      await client.simpleCall('delinvoice', params: params);
       client.close();
     });
   });
