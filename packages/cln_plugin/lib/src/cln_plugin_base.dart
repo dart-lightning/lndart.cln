@@ -8,12 +8,13 @@ import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
 import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
+import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
 
 /// UnixSocket plugin implementation is the default plugin API used to
 /// develop custom plugin for core lightning in dart.
 class Plugin implements CLNPlugin {
   /// All the rpc method that the plugin expose.
-  HashMap<String, RPCCommand> rpcMethods = HashMap();
+  HashMap<String, RPCMethod> rpcMethods = HashMap();
 
   /// All the rpc call where the plugin is subscribed.
   List<String> subscriptions = [];
@@ -71,7 +72,7 @@ class Plugin implements CLNPlugin {
       required String description,
       required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
           callback}) {
-    rpcMethods[name] = RPCCommand(
+    rpcMethods[name] = RPCMethod(
         name: name, usage: usage, description: description, callback: callback);
   }
 
@@ -90,8 +91,7 @@ class Plugin implements CLNPlugin {
       {required String event,
       required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
           onEvent}) {
-    notifications["event"] =
-        RPCCommand(name: "", usage: "", description: "", callback: onEvent);
+    notifications[event] = RPCNotification(method: event, callback: onEvent);
   }
 
   /// get manifest method used to communicate the plugin configuration

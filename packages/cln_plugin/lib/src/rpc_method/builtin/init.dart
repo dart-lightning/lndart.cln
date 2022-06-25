@@ -1,7 +1,7 @@
 import 'package:cln_plugin/src/cln_plugin_base.dart';
-import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
+import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
 
-class InitMethod extends RPCCommand {
+class InitMethod extends RPCMethod {
   // FIXME: Unsure of what the callback should look like.
   InitMethod(
       {required Future<Map<String, Object>> Function(
