@@ -6,7 +6,6 @@ import 'package:cln_common/cln_common.dart';
 import 'package:cln_plugin/src/icln_plugin_base.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
 import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
-import 'package:cln_plugin/src/rpc_method/rpc_command.dart';
 import 'package:cln_plugin/src/rpc_method/types/option.dart';
 import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
 
@@ -16,9 +15,6 @@ class Plugin implements CLNPlugin {
   /// All the rpc method that the plugin expose.
   HashMap<String, RPCMethod> rpcMethods = HashMap();
 
-  /// All the rpc call where the plugin is subscribed.
-  List<String> subscriptions = [];
-
   /// The option that the plugin use to configure itself
   /// from the user setting.
   Map<String, Option> options = {};
@@ -26,7 +22,7 @@ class Plugin implements CLNPlugin {
   /// All the hooks where the plugin is subscribed.
   Set<String> hooks = {};
 
-  /// Featurebis that this plugin will enable when is running
+  /// Featurebits that this plugin will enable when is running
   HashMap<String, Object> features = HashMap();
 
   /// Mark the plugin as dynamic means that can be ran when
@@ -35,7 +31,10 @@ class Plugin implements CLNPlugin {
   bool dynamic;
 
   /// All the notification where the plugin is subscribed.
-  HashMap<String, RPCCommand> notifications = HashMap();
+  HashMap<String, RPCNotification> subscriptions = HashMap();
+
+  /// All the notification that the plugin is able to generate.
+  HashMap<String, RPCNotification> notifications = HashMap();
 
   /// plugin configuration that contains all the information
   /// that core lightning send to us.
@@ -77,8 +76,11 @@ class Plugin implements CLNPlugin {
   }
 
   @override
-  void registerSubscriptions({required String event}) {
-    subscriptions.add(event);
+  void registerSubscriptions(
+      {required String event,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback}) {
+    subscriptions[event] = RPCNotification(method: event, callback: callback);
   }
 
   @override
@@ -106,8 +108,10 @@ class Plugin implements CLNPlugin {
         .where((rpc) => rpc.name != "init" && rpc.name != "getmanifest")
         .map((rpc) => rpc.toMap())
         .toList();
-    response["subscriptions"] = plugin.subscriptions;
     response["hooks"] = plugin.hooks.toList();
+    response["subscriptions"] = plugin.subscriptions.values
+        .map((subscription) => subscription.method)
+        .toList();
     response["notifications"] = [];
     response["dynamic"] = plugin.dynamic;
 
@@ -159,6 +163,16 @@ class Plugin implements CLNPlugin {
     throw Exception("Method with name $name not found!");
   }
 
+  Future<void> _handlingSubscription(
+      {required String event, required Map<String, Object> request}) async {
+    if (subscriptions.containsKey(event)) {
+      var subscription = subscriptions[event]!;
+      await subscription.call(this, request);
+      return;
+    }
+    throw Exception("Notification with name $event is not found!");
+  }
+
   void log({required String level, required String message}) {
     var payload = HashMap<String, Object>();
     payload["level"] = level;
@@ -193,9 +207,15 @@ class Plugin implements CLNPlugin {
           } else {
             param = HashMap();
           }
-          var result = await _call(jsonRequest.method, param);
-          var response = Response(id: jsonRequest.id, result: result).toJson();
-          stdout.write(json.encode(response));
+          if (jsonRequest.id == null) {
+            await _handlingSubscription(
+                event: jsonRequest.method, request: param);
+          } else {
+            var result = await _call(jsonRequest.method, param);
+            var response =
+                Response(id: jsonRequest.id, result: result).toJson();
+            stdout.write(json.encode(response));
+          }
         } catch (ex) {
           var response = Response(
                   id: jsonRequest.id,

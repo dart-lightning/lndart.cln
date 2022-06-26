@@ -15,9 +15,15 @@ class MyPlugin extends Plugin {
     });
   }
 
+  Future<Map<String, Object>> notifyMethod(
+      Plugin plugin, Map<String, Object> request) {
+    plugin.log(level: 'debug', message: 'Notification received!');
+    return Future.value({});
+  }
+
   @override
   void configurePlugin() {
-    // This is the standard way to register a plugin
+    /// This is the standard way to configure a plugin in dart
     registerOption(
         name: "foo_opt",
         type: "string",
@@ -30,6 +36,8 @@ class MyPlugin extends Plugin {
         usage: "",
         description: "This is an example of custom rpc method",
         callback: (plugin, request) => firstMethod(plugin, request));
+
+    registerSubscriptions(event: 'connect', callback: notifyMethod);
   }
 }
 

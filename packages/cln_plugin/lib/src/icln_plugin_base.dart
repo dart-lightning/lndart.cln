@@ -12,7 +12,10 @@ abstract class CLNPlugin {
       required String description,
       required bool deprecated});
 
-  void registerSubscriptions({required String event});
+  void registerSubscriptions(
+      {required String event,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback});
 
   void registerHook({required String name});
 
