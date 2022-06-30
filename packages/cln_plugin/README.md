@@ -16,7 +16,7 @@ and the Flutter guide for
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
   <p>
-    <strong> :dart: Dart framework for C-Lightning to develop custom plugins :dart: </strong>
+    <strong> :dart: dart library to develop custom plugins in dart for core lightning  :dart: </strong>
   </p>
 
   <p>
