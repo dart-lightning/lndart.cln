@@ -46,6 +46,7 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 The simplest way to get started is to instantiate an object of the `Plugin` class.
 ```dart
 var plugin = Plugin();
+plugin.start();
 ```
 This object can then be used to expose the different methods that allow the plugin to register the following with the core lightning daemon:
 - Option using the`registerOption()`.
@@ -61,6 +62,11 @@ The interface also allows extending the `Plugin` class.
 
 ```dart
 class MyPlugin extends Plugin {}
+
+void main() {
+  var plugin = MyPlugin();
+  plugin.start();
+}
 ```
 We can define a custom callback function to return a JSON object that would serve as the response to the method request.
 
