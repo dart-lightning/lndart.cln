@@ -8,7 +8,7 @@ import 'package:cln_plugin/cln_plugin.dart';
 
 class MyPlugin extends Plugin {
   /// This is a method that is registered to be called by the plugin
-  /// in its runtime.
+  /// where core lightning will require it.
   Future<Map<String, Object>> firstMethod(
       Plugin plugin, Map<String, Object> request) {
     log(level: "info", message: "Calling rpc");
