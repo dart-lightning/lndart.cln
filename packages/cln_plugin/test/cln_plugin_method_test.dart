@@ -80,6 +80,24 @@ void main() {
       expect(plugin.options["greeting"]!.deprecated, false);
     });
 
+    test('Property test - subscriptions', () async {
+      Future<Map<String, Object>> notifyMethod(
+          Plugin plugin, Map<String, Object> request) {
+        plugin.log(level: 'debug', message: 'Notification received!');
+        return Future.value({});
+      }
+
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+
+      plugin.registerSubscriptions(event: 'connect', callback: notifyMethod);
+      // We added a Subscription, we expect the class property options to be non empty.
+      expect(plugin.subscriptions.isNotEmpty, true);
+    });
+
     test('getManifest() Test', () async {
       var plugin = Plugin(
           dynamic: true,
@@ -95,6 +113,53 @@ void main() {
       expect(getManifest.containsKey('dynamic'), true);
       expect(getManifest.containsKey('hooks'), true);
       expect(getManifest.containsKey('subscriptions'), true);
+
+      expect(getManifest["rpcmethods"], isNotNull);
+      expect(getManifest["options"], isNotNull);
+      expect(getManifest["notifications"], isNotNull);
+      expect(getManifest["dynamic"], isNotNull);
+      expect(getManifest["hooks"], isNotNull);
+      expect(getManifest["subscriptions"], isNotNull);
     });
+  });
+  group('Init test: ', () {
+    test('Property test - option registered.', () {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+      var request = {
+        "options": {
+          "greeting": "World",
+        },
+        "configuration": {
+          "lightning-dir": "/home/user/.lightning/testnet",
+          "rpc-file": "lightning-rpc",
+          "startup": true,
+          "network": "testnet",
+          "feature_set": {
+            "init": "02aaa2",
+            "node": "8000000002aaa2",
+            "channel": "",
+            "invoice": "028200"
+          },
+          "proxy": {"type": "ipv4", "address": "127.0.0.1", "port": 9050},
+          "torv3-enabled": true,
+          "always_use_proxy": false
+        }
+      };
+      plugin.registerOption(
+          name: 'greeting',
+          type: 'string',
+          def: 'World',
+          description: 'This is the option description.');
+      plugin.init(plugin, request);
+      expect(plugin.options.containsKey('greeting'), true);
+      expect(plugin.options["greeting"]!.name.toString(), "greeting");
+      expect(plugin.options["greeting"]!.value.toString(), "World");
+    });
+
+    test('Property test - option registered.', () {});
   });
 }
