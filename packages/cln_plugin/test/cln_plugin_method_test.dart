@@ -160,6 +160,42 @@ void main() {
       expect(plugin.options["greeting"]!.value.toString(), "World");
     });
 
-    test('Property test - option registered.', () {});
+    test('Property test - option not registered.', () {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+      var request = {
+        "options": {"greeting": "World", "name": "Alibaba"},
+        "configuration": {
+          "lightning-dir": "/home/user/.lightning/testnet",
+          "rpc-file": "lightning-rpc",
+          "startup": true,
+          "network": "testnet",
+          "feature_set": {
+            "init": "02aaa2",
+            "node": "8000000002aaa2",
+            "channel": "",
+            "invoice": "028200"
+          },
+          "proxy": {"type": "ipv4", "address": "127.0.0.1", "port": 9050},
+          "torv3-enabled": true,
+          "always_use_proxy": false
+        }
+      };
+      plugin.registerOption(
+          name: 'greeting',
+          type: 'string',
+          def: 'World',
+          description: 'This is the option description.');
+      expect(() => plugin.init(plugin, request), throwsException);
+      // Make sure that inside the exception message there is the option name
+      // avoid to check the all message because the message can evolve in the time, but not the option name
+      expect(
+          () => plugin.init(plugin, request),
+          throwsA(predicate(
+              (e) => e is Exception && e.toString().contains("name"))));
+    });
   });
 }
