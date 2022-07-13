@@ -123,10 +123,16 @@ class Plugin implements CLNPlugin {
   Future<Map<String, Object>> init(
       Plugin plugin, Map<String, Object> request) async {
     var opts = Map.from(json.decode(json.encode(request['options'])));
-    opts.forEach((optsName, optValue) => options[optsName]!.value = optValue);
+    opts.forEach((optsName, optValue) {
+      if (!options.containsKey(optsName)) {
+        throw Exception(
+            "Option with name `$optsName` not register in the plugin options");
+      }
+      options[optsName]!.value = optValue;
+    });
     configuration =
         Map.from(json.decode(json.encode(request['configuration'])));
-    return await __onInit(plugin);
+    return await _onInit(plugin);
   }
 
   /// configurePlugin is used to configure the plugin that extend this class
@@ -134,7 +140,7 @@ class Plugin implements CLNPlugin {
 
   /// Unwrapping the logic of the onInit callback, and if it is defined run it
   /// otherwise return a empty object.
-  Future<Map<String, Object>> __onInit(Plugin plugin) async {
+  Future<Map<String, Object>> _onInit(Plugin plugin) async {
     if (onInit != null) {
       return await onInit!(plugin);
     }
