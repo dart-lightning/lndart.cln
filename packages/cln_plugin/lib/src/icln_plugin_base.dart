@@ -17,7 +17,10 @@ abstract class CLNPlugin {
       required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
           callback});
 
-  void registerHook({required String name});
+  void registerHook(
+      {required String name,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback});
 
   void registerNotification(
       {required String event,

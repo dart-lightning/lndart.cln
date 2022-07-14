@@ -20,7 +20,7 @@ class Plugin implements CLNPlugin {
   Map<String, Option> options = {};
 
   /// All the hooks where the plugin is subscribed.
-  Set<String> hooks = {};
+  HashMap<String, RPCHook> hooks = HashMap();
 
   /// Featurebits that this plugin will enable when is running
   HashMap<String, Object> features = HashMap();
@@ -86,8 +86,14 @@ class Plugin implements CLNPlugin {
   }
 
   @override
-  void registerHook({required String name}) {
-    hooks.add(name);
+  void registerHook(
+      {required String name,
+      List<String>? before,
+      List<String>? after,
+      required Future<Map<String, Object>> Function(Plugin, Map<String, Object>)
+          callback}) {
+    hooks[name] =
+        RPCHook(name: name, before: before, after: after, callback: callback);
   }
 
   @override
@@ -110,7 +116,8 @@ class Plugin implements CLNPlugin {
         .where((rpc) => rpc.name != "init" && rpc.name != "getmanifest")
         .map((rpc) => rpc.toMap())
         .toList();
-    response["hooks"] = plugin.hooks.toList();
+    response["hooks"] =
+        plugin.hooks.values.map((hook) => hook.toMap()).toList();
     response["subscriptions"] = plugin.subscriptions.values
         .map((subscription) => subscription.method)
         .toList();
@@ -162,11 +169,22 @@ class Plugin implements CLNPlugin {
     configurePlugin();
   }
 
-  Future<Map<String, Object>> _call(
+  Future<Map<String, Object>> _callHook(
+      String name, Map<String, Object> request) async {
+    if (hooks.containsKey(name)) {
+      var method = hooks[name]!;
+      return await method.call(this, request);
+    }
+    throw Exception("Hook with name $name not found!");
+  }
+
+  Future<Map<String, Object>> _callRPCMethod(
       String name, Map<String, Object> request) async {
     if (rpcMethods.containsKey(name)) {
       var method = rpcMethods[name]!;
       return await method.call(this, request);
+    } else if (hooks.containsKey(name)) {
+      return await _callHook(name, request);
     }
     throw Exception("Method with name $name not found!");
   }
@@ -224,10 +242,17 @@ class Plugin implements CLNPlugin {
             await _handlingSubscription(
                 event: jsonRequest.method, request: param);
           } else {
-            var result = await _call(jsonRequest.method, param);
-            var response =
-                Response(id: jsonRequest.id, result: result).toJson();
-            stdout.write(json.encode(response));
+            if (!rpcMethods.containsKey(jsonRequest.method)) {
+              var result = await _callHook(jsonRequest.method, param);
+              var response =
+                  Response(id: jsonRequest.id, result: result).toJson();
+              stdout.write(json.encode(response));
+            } else {
+              var result = await _callRPCMethod(jsonRequest.method, param);
+              var response =
+                  Response(id: jsonRequest.id, result: result).toJson();
+              stdout.write(json.encode(response));
+            }
           }
         } catch (ex) {
           var response = Response(
