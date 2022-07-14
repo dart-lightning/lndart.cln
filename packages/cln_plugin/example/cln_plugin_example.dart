@@ -30,5 +30,11 @@ void main() {
       def: "World",
       description: "What name should I call you?",
       deprecated: false);
+  plugin.registerHook(
+      name: "rpc_command",
+      callback: (plugin, request) {
+        plugin.log(level: "info", message: "hook info");
+        return Future(() => {"result": "continue"});
+      });
   plugin.start();
 }
