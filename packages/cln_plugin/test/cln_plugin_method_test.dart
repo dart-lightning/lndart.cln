@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cln_plugin/src/cln_plugin_base.dart';
 import 'package:test/test.dart';
 
@@ -120,6 +122,30 @@ void main() {
       expect(getManifest["dynamic"], isNotNull);
       expect(getManifest["hooks"], isNotNull);
       expect(getManifest["subscriptions"], isNotNull);
+    });
+
+    test('deep getManifest Test', () async {
+      var plugin = Plugin(
+          dynamic: true,
+          onInit: (plugin) {
+            return Future.value({});
+          });
+      plugin.registerHook(
+          name: "rpc_command",
+          callback: (plugin, request) {
+            plugin.log(level: "info", message: "hook info");
+            return Future(() => {"result": "continue"});
+          });
+      // Adding an empty request and generating a manifest.
+      var getManifest = await plugin.getManifest(plugin, {});
+
+      expect(getManifest.containsKey('hooks'), true);
+      expect(getManifest["hooks"], isNotNull);
+      var hooks = List.from(jsonDecode(jsonEncode(getManifest["hooks"])));
+      expect(hooks.length, 1);
+      expect(hooks[0]["name"], "rpc_command");
+      expect(hooks[0]["before"], isNull);
+      expect(hooks[0]["after"], isNull);
     });
   });
   group('Init test: ', () {
