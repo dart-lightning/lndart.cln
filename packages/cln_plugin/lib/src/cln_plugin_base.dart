@@ -242,17 +242,10 @@ class Plugin implements CLNPlugin {
             await _handlingSubscription(
                 event: jsonRequest.method, request: param);
           } else {
-            if (!rpcMethods.containsKey(jsonRequest.method)) {
-              var result = await _callHook(jsonRequest.method, param);
-              var response =
-                  Response(id: jsonRequest.id, result: result).toJson();
-              stdout.write(json.encode(response));
-            } else {
-              var result = await _callRPCMethod(jsonRequest.method, param);
-              var response =
-                  Response(id: jsonRequest.id, result: result).toJson();
-              stdout.write(json.encode(response));
-            }
+            var result = await _callRPCMethod(jsonRequest.method, param);
+            var response =
+                Response(id: jsonRequest.id, result: result).toJson();
+            stdout.write(json.encode(response));
           }
         } catch (ex) {
           var response = Response(
