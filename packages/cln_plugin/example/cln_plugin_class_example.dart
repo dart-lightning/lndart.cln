@@ -5,7 +5,6 @@ import 'package:cln_plugin/cln_plugin.dart';
 ///
 /// This involve the possibility to develop in a more OOP style the
 /// code, but also to keep the code clean a simple to read.
-
 class MyPlugin extends Plugin {
   /// This is a method that is registered to be called by the plugin
   /// where core lightning will require it.
@@ -15,6 +14,12 @@ class MyPlugin extends Plugin {
     return Future.value({
       "foo_opt": getOpt(key: "foo_opt") ?? "not found",
     });
+  }
+
+  Future<Map<String, Object>> onRpcCommand(
+      Plugin plugin, Map<String, Object> request) {
+    log(level: "info", message: "hook info");
+    return Future(() => {"result": "continue"});
   }
 
   /// This is a method that is subscribed to be called in response to
@@ -44,6 +49,10 @@ class MyPlugin extends Plugin {
     /// This is the standard way to subscribe to a core lightning
     /// notification.
     registerSubscriptions(event: 'connect', callback: notifyMethod);
+
+    /// Register an hook that it is triggered by core lightning when
+    /// any rpc command is executed.
+    registerHook(name: "rpc_command", callback: onRpcCommand);
   }
 }
 
