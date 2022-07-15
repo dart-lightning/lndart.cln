@@ -27,10 +27,10 @@
  
 The repository is managed as monorepo, and it contains the following packages:
 
-| Package        | Description                                                      | Version    |
-|----------------|------------------------------------------------------------------|------------|
-| cln_common     | A package that provides common interface for the monorepo.       | unreleased |
-| clightning_rpc | An RPC wrapper around the core lightning API.                    | unreleased |
+| Package        | Description                                                     | Version    |
+|----------------|-----------------------------------------------------------------|------------|
+| cln_common     | A package that provides common interface for the monorepo.      | unreleased |
+| clightning_rpc | A RPC wrapper around the core lightning API.                    | unreleased |
 | cln_plugin     | A library to write extensible plugin in dart for core lightning. | unreleased |
     
 ## How to contribute
