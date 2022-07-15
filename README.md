@@ -18,21 +18,24 @@
 
 ## Table of Content
 
-- Introduction
+- Packages
 - How to Use
 - How Contribute
 - License
 
-## Introduction
+## Packages
  
 The repository is managed as monorepo, and it contains the following packages:
 
-- clightning_rpc: The RPC wrapper around the core lightning API.
-- cln_plugin: A library to write extensible plugin in dart for core lightning.
+| Package        | Description                                                      | Version    |
+|----------------|------------------------------------------------------------------|------------|
+| cln_common     | A package that provides common interface for the monorepo.       | unreleased |
+| clightning_rpc | An RPC wrapper around the core lightning API.                    | unreleased |
+| cln_plugin     | A library to write extensible plugin in dart for core lightning. | unreleased |
     
-## How Contribute
+## How to contribute
 
-Read out [Hacking guide](#TODO)
+Read our [Hacking guide](#TODO)
 
 ## License
 
