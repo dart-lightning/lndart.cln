@@ -35,7 +35,7 @@ The repository is managed as monorepo, and it contains the following packages:
     
 ## How to contribute
 
-Read our [Hacking guide](#TODO)
+Read our [Hacking guide](./docs/dev/MAINTAINERS.mdx)
 
 ## License
 
