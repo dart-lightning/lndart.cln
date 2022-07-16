@@ -5,6 +5,7 @@ services:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile.integration_test
+    network_mode: "host"
     depends_on:
       - lnlambda
     volumes:
