@@ -1,13 +1,13 @@
 {
   "package_name": "rpc",
-  "version": "v0.0.1",
+  "version": "v0.0.2",
   "api": {
     "name": "github",
     "repository": "dart-lightning/lndart.clightning",
     "branch": "main"
   },
   "generation_method": {
-    "name": "header",
+    "name": "semver-v2",
     "header_filter": true
   },
   "serialization_method": {

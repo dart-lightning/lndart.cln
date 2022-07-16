@@ -1,15 +1,3 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 <div align="center">
   <h1>lndart.clightning</h1>
 
@@ -19,34 +7,41 @@ and the Flutter guide for
     <strong> :dart: dart library to develop custom plugins in dart for core lightning  :dart: </strong>
   </p>
 
-  <p>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
-  </p>
-
   <h4>
     <a href="https://github.com/dart-lightning">Project Homepage</a>
   </h4>
+
+
+  <a>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
+  </a>
+
+  <a>
+    <img alt="Pub Popularity" src="https://img.shields.io/pub/popularity/cln_plugin?style=flat-square">
+  </a>
+
+  <a> 
+     <img alt="Pub Points" src="https://img.shields.io/pub/points/cln_plugin?style=flat-square">
+  </a>
 </div>
 
-This package provides an easy and comprehensive interface to develop custom plugins for core lightning in the Dart programming environment. Plugins developed using this library conform to the JSON-RPCv2 specifications.
-
 ## Table of Content
-
-- Features
-- Getting Started
+- Introduction
+- How to use
 - How to contribute
 - License
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Introduction
+Dart package that provides an easy and comprehensive interface to develop custom plugins for core lightning in the Dart programming environment.
 
 ## Getting started
 
 The simplest way to get started is to instantiate an object of the `Plugin` class.
 ```dart
-var plugin = Plugin();
-plugin.start();
+void main() {
+  var plugin = Plugin();
+  plugin.start();
+}
 ```
 This object can then be used to expose the different methods that allow the plugin to register the following with the core lightning daemon:
 - Option using the`registerOption()`.
@@ -94,9 +89,10 @@ void configurePlugin() {
 Refer to the `/example` for more complete examples on how to use the library.
 
 [This](https://github.com/dart-lightning/dart_plugin) is a template to easily create plugins for core lightning.
+
 ## How to contribute
 
-Read our [Hacking Guide]().
+Read our [Hacking guide](https://docs.page/dart-lightning/lndart.clightning/dev/MAINTAINERS)
 
 ## License
 

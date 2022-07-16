@@ -1,7 +1,7 @@
 name: cln_common
-description: A starting point for Dart libraries or applications.
+description: Proposed solution for the package fragmentation across different package and application that used a basic package like building blocks.
 version: 0.0.1
-# homepage: https://www.example.com
+homepage: https://github.com/dart-lightning/lndart.clightning
 
 environment:
   sdk: '>=2.17.3 <3.0.0'
@@ -9,7 +9,6 @@ environment:
 dependencies:
   json_annotation: ^4.5.0
   logger: ^1.0.0
-
 
 dev_dependencies:
   lints: ^2.0.0

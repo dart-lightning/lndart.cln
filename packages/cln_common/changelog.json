@@ -1,5 +1,5 @@
 {
-  "package_name": "plugin",
+  "package_name": "comm",
   "version": "v0.0.1",
   "api": {
     "name": "github",

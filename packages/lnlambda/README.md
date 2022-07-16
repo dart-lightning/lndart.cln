@@ -6,24 +6,22 @@
   <p>
     <strong> :dart: minimal interface to run lnlambda function with dart. :dart: </strong>
   </p>
-  
-  <div>
-  <p>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
-  </p>
-
-  <p>
-    <img alt="Pub Popularity" src="https://img.shields.io/pub/popularity/lnlambda?style=flat-square">
-  </p>
-
-  <p> 
-     <img alt="Pub Points" src="https://img.shields.io/pub/points/lnlambda?style=flat-square">
-  </p>
 
   <h4>
     <a href="https://github.com/dart-lightning">Project Homepage</a>
   </h4>
-  </div>
+
+  <a>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
+  </a>
+
+  <a>
+    <img alt="Pub Popularity" src="https://img.shields.io/pub/popularity/lnlambda?style=flat-square">
+  </a>
+
+  <a> 
+     <img alt="Pub Points" src="https://img.shields.io/pub/points/lnlambda?style=flat-square">
+  </a>
 </div>
 
 ## Table of Content

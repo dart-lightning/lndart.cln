@@ -7,13 +7,21 @@
     <strong> :dart: Dart framework for C-Lightning to work with the RPC interface :dart: </strong>
   </p>
 
-  <p>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
-  </p>
-
   <h4>
     <a href="https://github.com/dart-lightning">Project Homepage</a>
   </h4>
+
+  <a>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/dart-lightning/clightning.dart/Sanity%20Check?style=flat-square">
+  </a>
+
+  <a>
+    <img alt="Pub Popularity" src="https://img.shields.io/pub/popularity/clightning_rpc?style=flat-square">
+  </a>
+
+  <a> 
+     <img alt="Pub Points" src="https://img.shields.io/pub/points/clightning_rpc?style=flat-square">
+  </a>
 </div>
 
 ## Table of Content
@@ -24,7 +32,8 @@
 - License
 
 ## Introduction
-TODO
+
+Generic and Fast way to have your app connected with core lightning with dart and Unix sockets.
 
 ## How to Use
 ```dart
@@ -51,12 +60,11 @@ Future<void> main() async {
   response = await client.call('delinvoice', params: params);
   print(response);
 }
-    
 ```
 
-## How Contribute
+## How to contribute
 
-TODO
+Read our [Hacking guide](https://docs.page/dart-lightning/lndart.clightning/dev/MAINTAINERS)
 
 ## License
 
