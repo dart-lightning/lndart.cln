@@ -1,9 +1,12 @@
 FROM ubuntu:20.04
 LABEL mantainer="Vincenzo Palazzo vincenzopalazzodev@gmail.com"
 
+ENV TZ=Europe/Minsk
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Ubuntu utils
 RUN apt-get update && apt-get install -y \
-    software-properties-common wget && \
+    software-properties-common wget git python3-pip python3 && \
     sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' && \
     sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list' && \
     apt-get update && apt-get install -y dart
@@ -21,6 +24,11 @@ RUN wget https://github.com/ElementsProject/lightning/releases/download/v$CLIGHT
 RUN rm -r clightning-v$CLIGHTNING_VERSION-Ubuntu-20.04.tar.xz
 
 ENV PATH=/opt/clightning-v$CLIGHTNING_VERSION/bin:$PATH
+
+# Remove when commando is inside cln release
+RUN git clone https://github.com/lightningd/plugins.git && \
+    cd plugins/commando && pip3 install -r requirements.txt && cd .. && \
+    cp -rf commando/ /opt/commando/
 
 WORKDIR workdir
 

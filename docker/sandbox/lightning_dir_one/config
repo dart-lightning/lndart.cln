@@ -16,5 +16,7 @@ log-level=debug
 plugin=/workdir/code/packages/cln_plugin/cln_dart
 plugin=/workdir/code/packages/cln_plugin/cln_class_dart
 
+plugin=/opt/commando/commando.py
+
 log-file=/workdir/node_one.log
 allow-deprecated-apis=false

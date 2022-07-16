@@ -27,7 +27,7 @@ void main() {
           nodeID: getInfo["id"]!,
           host: "52.55.124.1:19735",
           rune: commandRune["rune"],
-          lambdaServer: "127.0.0.1:9002");
+          lambdaServer: "http://127.0.0.1:9002");
       var response = client.simpleCall("getinfo", params: {});
       LogManager.getInstance.debug("Response from lambda $response");
     });

@@ -10,7 +10,7 @@ jobs:
       - name: Integration testing
         run: |
           cd docker
-          docker-compose up --exit-code-from cln --quiet-pull
+          docker-compose up --exit-code-from cln
       - name: Upload lightning log
         uses: actions/upload-artifact@v2
         if: failure()
