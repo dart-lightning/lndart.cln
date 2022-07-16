@@ -1,0 +1,29 @@
+name: core lightning lnlambda sanity Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        sdk: [stable, beta, dev]
+        flavor: [release]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: sdk ${{ matrix.sdk }} and os ${{ matrix.os }}
+        run: |
+          cd packages/lnlambda
+          dart pub get
+          dart format --set-exit-if-changed .
+          dart analyze

@@ -24,6 +24,10 @@ scripts:
     run: melos exec -c 1 --scope="cln_common" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
     description: Run dart analyzer in a specific package.
 
+  lnlambda_analyze:
+    run: melos exec -c 1 --scope="lnlambda" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    description: Run dart analyzer in a specific package.
+
   plugin_test:
     description: Run tests in a specific package.
     run: melos exec --concurrency=2 --scope="cln_plugin" -- "dart pub get && dart pub run test"
@@ -33,6 +37,12 @@ scripts:
   common_test:
     description: Run tests in a specific package.
     run: melos exec --concurrency=2 --scope="cln_common" -- "dart pub get && dart pub run test"
+    env:
+      MELOS_TEST: true
+
+  lnlambda_test:
+    description: Run tests in a specific package.
+    run: melos exec --concurrency=2 --scope="lnlambda" -- "dart pub get && dart pub run test"
     env:
       MELOS_TEST: true
 
