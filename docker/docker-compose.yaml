@@ -5,6 +5,11 @@ services:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile.integration_test
+    depends_on:
+      - lnlambda
     volumes:
       - ./sandbox/:/workdir
       - ../:/workdir/code
+  lnlambda:
+    image: vincenzopalazzo/lnlambda:v0.0.1
+    network_mode: "host"
