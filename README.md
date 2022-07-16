@@ -24,18 +24,18 @@
 - License
 
 ## Packages
- 
-The repository is managed as monorepo, and it contains the following packages:
+
+This dart monorepo houses the following packages to develop fast and maintainable applications for interacting with core lightning.
 
 | Package        | Description                                                     | Version    |
 |----------------|-----------------------------------------------------------------|------------|
-| cln_common     | A package that provides common interface for the monorepo.      | unreleased |
-| clightning_rpc | A RPC wrapper around the core lightning API.                    | unreleased |
-| cln_plugin     | A library to write extensible plugin in dart for core lightning. | unreleased |
+| [cln_common](packages/cln_common)     | A package that provides common interface for the monorepo.      | unreleased |
+| [clightning_rpc](packages/rpc) | A RPC wrapper around the core lightning API.                    | ![Pub Version (including pre-releases)](https://img.shields.io/pub/v/clightning_rpc?include_prereleases&style=flat-square) |
+| [cln_plugin](packages/cln_plugin)     | A library to write extensible plugin in dart for core lightning. | unreleased |
     
 ## How to contribute
 
-Read our [Hacking guide](./docs/dev/MAINTAINERS.mdx)
+Read our [Hacking guide](https://docs.page/dart-lightning/lndart.clightning/dev/MAINTAINERS)
 
 ## License
 

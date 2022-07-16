@@ -1,7 +1,7 @@
 name: clightning_rpc
-description: Dart framework for C-Lightning to work with the RPC interface.
-version: 0.0.1
-homepage: https://github.com/dart-lightning/clightning-rpc.dart
+description: Generic and Fast way to have your app connected with core lightning with dart and Unix socket
+version: 0.0.2
+homepage: https://github.com/dart-lightning/lndart.clightning
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
