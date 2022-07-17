@@ -1,4 +1,4 @@
-import 'package:cln_plugin/cln_plugin.dart';
+import 'package:cln_plugin_api/cln_plugin.dart';
 
 abstract class CLNPlugin {
   void start();
