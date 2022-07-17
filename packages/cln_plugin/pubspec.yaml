@@ -8,17 +8,17 @@ environment:
 
 dependencies:
   json_annotation: ^4.5.0
-  cln_common: ^0.0.1
+  cln_common: ^0.0.1-beta.1
 
 dev_dependencies:
   lints: ^1.0.0
   test: ^1.16.0
   build_runner: ^2.0.0
   json_serializable: ^6.2.0
-  clightning_rpc: ^0.0.1
+  clightning_rpc: ^0.0.2-beta.1
 
-dependency_overrides:
-  cln_common:
-    path: ../cln_common
-  clightning_rpc:
-    path: ../rpc
+# dependency_overrides:
+#  cln_common:
+#    path: ../cln_common
+#  clightning_rpc:
+#    path: ../rpc
