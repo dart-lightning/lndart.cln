@@ -3,7 +3,7 @@
   "version": "v0.0.1-beta.1",
   "api": {
     "name": "github",
-    "repository": "dart-lightning/lndart.clightning",
+    "repository": "dart-lightning/lndart.cln",
     "branch": "main"
   },
   "generation_method": {

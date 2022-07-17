@@ -54,7 +54,7 @@ void main() {
 You can implement your own client that follow the rules of the cln.dart package with the following basic class
 
 ```dart
-/// Client interface to create a (c-)lightning client
+/// Client interface to create a core lightning client
 /// That can support different protocols.
 abstract class LightningClient {
   // Connect interface to initialize the client
@@ -64,7 +64,7 @@ abstract class LightningClient {
   Future<T> call<R extends Serializable, T>(
       {required String method, required R params, T Function(Map)? onDecode});
 
-  // Generic method to call a method in (c-)lightning
+  // Generic method to call a method in core lightning
   Future<Map<String, dynamic>> simpleCall(String method,
       {Map<String, dynamic> params = const {}});
 
@@ -84,7 +84,7 @@ abstract class Serializable {
 
 ### How to create a valid JSON RPC 2.0
 
-If you need to send you a JSON RPC 2.0 PRC 2.0 request or response you cann use the following class
+If you need to send you a JSON RPC 2.0 PRC 2.0 request or response you can use the following class
 
 ```dart
 import "package:cln_common/cln_common.dart";
@@ -105,7 +105,7 @@ void main() {
 
 ## How to contribute
 
-Read our [Hacking guide](https://docs.page/dart-lightning/lndart.clightning/dev/MAINTAINERS)
+Read our [Hacking guide](https://docs.page/dart-lightning/lndart.cln/dev/MAINTAINERS)
 
 ## License
 
