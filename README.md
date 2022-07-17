@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>lndart.clightning</h1>
+  <h1>lndart.cln</h1>
 
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
