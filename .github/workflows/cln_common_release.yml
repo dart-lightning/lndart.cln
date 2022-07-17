@@ -1,0 +1,30 @@
+name: lndart.cln_common release package
+
+on:
+  release:
+    types: [created]
+    tags:
+      - cln_common-v*
+  push:
+  workflow_run:
+    workflows:
+      - "lndart.cln packages check"
+    branches: [ main ]
+    types:
+      - completed
+
+jobs:
+  publishing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'publish lndart.cln_common to to Pub.dev'
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          flutter: false
+          skipTests: true
+          dryRunOnly: ${{ github.event_name != 'release' }}
+          relativePath: './packages/cln_common/'
