@@ -26,5 +26,6 @@ jobs:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
           flutter: false
           skipTests: true
+          force: true
           dryRunOnly: ${{ github.event_name != 'release' }}
           relativePath: './packages/cln_plugin/'
