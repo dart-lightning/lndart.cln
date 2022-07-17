@@ -1,10 +1,10 @@
 <div align="center">
-  <h1>lndart.clightning</h1>
+  <h1>lndart.cln</h1>
 
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
   <p>
-    <strong> :dart: Dart framework for C-Lightning to work with the RPC interface :dart: </strong>
+    <strong> :dart: Dart framework for Core Lightning to work with the RPC interface :dart: </strong>
   </p>
 
   <h4>

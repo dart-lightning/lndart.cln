@@ -4,7 +4,7 @@
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
   <p>
-    <strong> :dart: dart library to develop custom plugins in dart for core lightning  :dart: </strong>
+    <strong> :dart: Dart library to develop custom plugins for core lightning :dart: </strong>
   </p>
 
   <h4>

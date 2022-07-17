@@ -8,7 +8,7 @@ class Request {
   /// MUST be exactly "2.0".
   String jsonrpc = "2.0";
 
-  /// An identifier established by the Client.
+  /// An identifier established by the client.
   /// Since core lightning uses int, we will enforce this type omitting
   /// the JSON-RPC 2.0 spec.
   int? id;

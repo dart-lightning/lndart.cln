@@ -4,7 +4,7 @@
   <img src="https://github.com/dart-lightning/icons/raw/main/main/res/mipmap-xxxhdpi/ic_launcher.png" />
 
   <p>
-    <strong> :dart: Dart framework for C-Lightning :dart: </strong>
+    <strong> :dart: Dart framework for Core Lightning :dart: </strong>
   </p>
 
   <p>
@@ -20,7 +20,7 @@
 
 - Packages
 - How to Use
-- How Contribute
+- How to contribute
 - License
 
 ## Packages
