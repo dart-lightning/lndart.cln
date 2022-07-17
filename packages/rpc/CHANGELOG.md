@@ -1,6 +1,5 @@
-## 0.0.2
+# v0.0.2-beta.1
 
-- changes skipped
 
 ## 0.0.1
 
