@@ -1,4 +1,4 @@
-name: cln.dart packages check
+name: lndart.cln packages check
 
 on:
   push:

@@ -1,0 +1,30 @@
+name: lndart.cln_plugin release package
+
+on:
+  release:
+    types: [created]
+    tags:
+      - cln_plugin-v*
+  push:
+  workflow_run:
+    workflows:
+      - "lndart.cln packages check"
+    branches: [ main ]
+    types:
+      - completed
+
+jobs:
+  publishing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'publish lndart.cln_plugin to to Pub.dev'
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          flutter: false
+          skipTests: true
+          dryRunOnly: ${{ github.event_name != 'release' }}
+          relativePath: './packages/cln_plugin/'
