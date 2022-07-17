@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cln_common/cln_common.dart';
-import 'package:cln_plugin/src/icln_plugin_base.dart';
-import 'package:cln_plugin/src/rpc_method/builtin/get_manifest.dart';
-import 'package:cln_plugin/src/rpc_method/builtin/init.dart';
-import 'package:cln_plugin/src/rpc_method/types/option.dart';
-import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
+import 'package:cln_plugin_api/src/icln_plugin_base.dart';
+import 'package:cln_plugin_api/src/rpc_method/builtin/get_manifest.dart';
+import 'package:cln_plugin_api/src/rpc_method/builtin/init.dart';
+import 'package:cln_plugin_api/src/rpc_method/types/option.dart';
+import 'package:cln_plugin_api/src/rpc_method/types/rpc_type.dart';
 
 /// UnixSocket plugin implementation is the default plugin API used to
 /// develop custom plugin for core lightning in dart.

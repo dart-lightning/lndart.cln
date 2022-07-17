@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cln_plugin/src/cln_plugin_base.dart';
+import 'package:cln_plugin_api_api/src/cln_plugin_base.dart';
 import 'package:test/test.dart';
 
 void main() {

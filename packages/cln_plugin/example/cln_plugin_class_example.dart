@@ -1,4 +1,4 @@
-import 'package:cln_plugin/cln_plugin.dart';
+import 'package:cln_plugin_api/cln_plugin.dart';
 
 /// N.B. This style of developing a plugin is the suggested one
 /// for middle and big plugin.

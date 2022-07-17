@@ -1,5 +1,5 @@
-import 'package:cln_plugin/cln_plugin.dart';
-import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
+import 'package:cln_plugin_api/cln_plugin.dart';
+import 'package:cln_plugin_api/src/rpc_method/types/rpc_type.dart';
 
 /// GetManifest is a command implementation of the get manifest method
 /// that takes in input the callback to return the necessary data

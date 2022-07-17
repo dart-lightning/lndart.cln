@@ -1,5 +1,5 @@
-import 'package:cln_plugin/src/cln_plugin_base.dart';
-import 'package:cln_plugin/src/rpc_method/types/rpc_type.dart';
+import 'package:cln_plugin_api/src/cln_plugin_base.dart';
+import 'package:cln_plugin_api/src/rpc_method/types/rpc_type.dart';
 
 class InitMethod extends RPCMethod {
   // FIXME: Unsure of what the callback should look like.
