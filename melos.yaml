@@ -17,7 +17,7 @@ scripts:
     description: Run dart analyzer in a specific package.
 
   plugin_analyze:
-    run: melos exec -c 1 --scope="cln_plugin" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    run: melos exec -c 1 --scope="cln_plugin_api" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
     description: Run dart analyzer in a specific package.
 
   common_analyze:
@@ -30,7 +30,7 @@ scripts:
 
   plugin_test:
     description: Run tests in a specific package.
-    run: melos exec --concurrency=2 --scope="cln_plugin" -- "dart pub get && dart pub run test"
+    run: melos exec --concurrency=2 --scope="cln_plugin_api" -- "dart pub get && dart pub run test"
     env:
       MELOS_TEST: true
 
@@ -54,7 +54,7 @@ scripts:
 
   build_plugin:
     description: Build the plugin used inside the tests.
-    run: melos exec --concurrency=2 --scope="cln_plugin" -- "make examples"
+    run: melos exec --concurrency=2 --scope="cln_plugin_api" -- "make examples"
     env:
       MELOS_TEST: true
 
