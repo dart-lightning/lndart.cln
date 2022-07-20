@@ -3,8 +3,8 @@ import 'package:cln_plugin_api/cln_plugin.dart';
 /// N.B. This style of developing a plugin is the suggested one
 /// for small plugins.
 ///
-/// This involve the possibility to develop in a more OOP style the
-/// code, but also to keep the code clean a simple to read.
+/// This involves the possibility to develop in a more object oriented style which
+/// also to keeps the code clean and simple to read.
 
 void main() {
   var plugin = Plugin(
@@ -19,7 +19,8 @@ void main() {
   plugin.registerRPCMethod(
       name: "foo",
       usage: "",
-      description: "an example of how register a ",
+      description:
+          "an example of how to register a RPC method with the plugin.",
       callback: (plugin, request) => Future.value(<String, Object>{
             "msg": "Hello",
             "language": "dart",
