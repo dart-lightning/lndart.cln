@@ -34,7 +34,7 @@ This dart monorepo houses the following packages to develop fast and maintainabl
 | [cln_plugin_api](packages/cln_plugin)     | A library to write extensible plugin in dart for core lightning. | ![Pub Version (including pre-releases)](https://img.shields.io/pub/v/cln_plugin_api?include_prereleases&style=flat-square) |
 | [lnlambda](packages/lnlambda)     | Minimal interface to run lnlambda function with dart. | ![Pub Version (including pre-releases)](https://img.shields.io/pub/v/lnlambda?include_prereleases&style=flat-square) |
 
-There is an experimental GRPC interface for core lightning written in dart which can be found [here](https://github.com/dart-lightning/lndart.cln_grpc).
+There is also an experimental GRPC interface for core lightning written in dart which can be found [here](https://github.com/dart-lightning/lndart.cln_grpc).
 ## How to contribute
 
 Read our [Hacking guide](https://docs.page/dart-lightning/lndart.clightning/dev/MAINTAINERS)
