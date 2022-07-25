@@ -29,7 +29,7 @@ class RPCClient implements LightningClient {
       {required String method,
       required R params,
       T Function(Map)? onDecode}) async {
-    var response = await _client.call(method, params);
+    var response = await _client.call(method, params.toJSON());
     LogManager.getInstance
         .debug('Response from RPC is : ${response.toString()}');
     if (onDecode != null) {
