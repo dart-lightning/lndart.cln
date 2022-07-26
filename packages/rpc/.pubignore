@@ -2,3 +2,5 @@
 **/sandbox/*
 Dockerfile
 docker-compose.yaml
+test
+*.json
