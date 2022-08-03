@@ -13,7 +13,7 @@ scripts:
     select-package:
 
   rpc_analyze:
-    run: melos exec -c 1 --scope="rpc" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
+    run: melos exec -c 1 --scope="clightning_rpc" -- "dart format --set-exit-if-changed . && dart analyze . --fatal-infos"
     description: Run dart analyzer in a specific package.
 
   plugin_analyze:
@@ -48,7 +48,7 @@ scripts:
 
   rpc_test:
     description: Run tests in a specific package.
-    run: melos exec --concurrency=2 --scope="rpc" -- "dart pub get && dart pub run test"
+    run: melos exec --concurrency=2 --scope="clightning_rpc" -- "dart pub get && dart pub run test"
     env:
       MELOS_TEST: true
 

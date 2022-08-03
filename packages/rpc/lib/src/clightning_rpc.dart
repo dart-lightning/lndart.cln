@@ -22,7 +22,9 @@ class RPCClient implements LightningClient {
   }
 
   @override
-  void close() async {}
+  void close() async {
+    return;
+  }
 
   @override
   Future<T> call<R extends Serializable, T>(
