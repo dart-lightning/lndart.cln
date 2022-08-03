@@ -1,3 +1,9 @@
+# v0.0.1-beta.3
+
+## Fixes
+- unwrap the payload from the commando wrapper ([commit](https://github.com/dart-lightning/lndart.cln/commit/63c0c9abef2d9d07d686e31d4e98628cdc484532)). @vincenzopalazzo 03-08-2022
+
+
 # v0.0.1-beta.2
 
 ## Fixes
