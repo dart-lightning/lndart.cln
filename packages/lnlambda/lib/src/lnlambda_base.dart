@@ -55,9 +55,10 @@ class LNLambdaClient implements LightningClient {
     var response = await http.post(Uri.parse("$lambdaServer/lnsocket"),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: json.encode(request.toJSON()));
-    if (response.statusCode > 0) {
+    Map<String, dynamic> result = json.decode(response.body);
+    if (result.containsKey("errors")) {
       throw Exception(response.body);
     }
-    return json.decode(response.body);
+    return result;
   }
 }
