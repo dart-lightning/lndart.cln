@@ -59,6 +59,6 @@ class LNLambdaClient implements LightningClient {
     if (result.containsKey("errors")) {
       throw Exception(response.body);
     }
-    return result;
+    return result["result"];
   }
 }
