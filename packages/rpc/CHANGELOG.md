@@ -1,3 +1,9 @@
+# v0.0.2-beta.3
+
+## Added
+- throw exception when cln returns an error ([commit](https://github.com/dart-lightning/lndart.cln/commit/8d2aaf81a969ef0058af4178864219cbc05c796d)). @swaptr 07-08-2022
+
+
 # v0.0.2-beta.2
 
 ## Fixed
