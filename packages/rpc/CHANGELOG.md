@@ -1,3 +1,9 @@
+# v0.0.2-beta.4
+
+## Fixed
+- export the exception and make it public ([commit](https://github.com/dart-lightning/lndart.cln/commit/20f84d225a4574b1898dec57a822f6f7201be059)). @vincenzopalazzo 08-08-2022
+
+
 # v0.0.2-beta.3
 
 ## Added
