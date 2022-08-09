@@ -1,6 +1,6 @@
 name: cln_plugin_api
 description: Dart package that provides an easy and comprehensive interface to develop custom plugins for core lightning in the Dart programming environment.
-version: 0.0.1-beta.1
+version: 0.0.1-beta.2
 homepage: https://github.com/dart-lightning/lndart.clightning
 
 environment:
