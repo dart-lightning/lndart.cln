@@ -252,7 +252,7 @@ class Plugin implements CLNPlugin {
                   id: jsonRequest.id,
                   error: Error(code: -1, message: ex.toString()))
               .toJson();
-          stdout.write(response);
+          stdout.write(json.encode(response));
         }
       }
     } catch (error, stacktrace) {
