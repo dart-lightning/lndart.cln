@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:test/test.dart';
 import 'package:clightning_rpc/clightning_rpc.dart';
-import 'package:clightning_rpc/src/utils/exception/ln_client_error.dart';
 
 void main() {
   var env = Platform.environment;
