@@ -1,3 +1,9 @@
+# v0.0.1-beta.4
+
+## Fixes
+- fix `XMLHttpRequest` exception ([commit](https://github.com/dart-lightning/lndart.cln/commit/92939e2e0dffd3f5857d3364e88884141e268c4d)). @vincenzopalazzo 13-08-2022
+
+
 # v0.0.1-beta.3
 
 ## Fixes
