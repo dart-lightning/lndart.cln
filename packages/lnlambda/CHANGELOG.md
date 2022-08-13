@@ -1,3 +1,9 @@
+# v0.0.1-beta.5
+
+## Fixes
+- fix header ([commit](https://github.com/dart-lightning/lndart.cln/commit/645ff26cb5db723abb882936e4a02e0bbdf172d9)). @vincenzopalazzo 13-08-2022
+
+
 # v0.0.1-beta.4
 
 ## Fixes
