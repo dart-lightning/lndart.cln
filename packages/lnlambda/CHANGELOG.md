@@ -1,3 +1,9 @@
+# v0.0.1-beta.6
+
+## Fixes
+- cleanup cors request headers ([commit](https://github.com/dart-lightning/lndart.cln/commit/2ea12a1db0771616e3933d6fc9cb81ce465a8b2a)). @vincenzopalazzo 18-08-2022
+
+
 # v0.0.1-beta.5
 
 ## Fixes

@@ -1,6 +1,6 @@
 name: lnlambda
 description: Minimal interface to run lnlambda function with dart.
-version: 0.0.1-beta.5
+version: 0.0.1-beta.6
 homepage: https://github.com/dart-lightning/lndart.clightning
 
 environment:
