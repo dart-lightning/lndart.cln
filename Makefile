@@ -7,7 +7,7 @@ default: analyze
 
 dep:
 	dart pub global activate melos;
-	dart pub global activate spec_cli;
+#	dart pub global activate spec_cli;
 	dart pub global activate changelog_cmd;
 	$(CC) bootstrap
 
