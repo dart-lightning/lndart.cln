@@ -6,7 +6,7 @@ default: analyze
 	$(CC) run build_plugin --no-select
 
 dep:
-	dart pub global activate melos;
+	dart pub global activate melos 2.9.0;
 #	dart pub global activate spec_cli;
 	dart pub global activate changelog_cmd;
 	$(CC) bootstrap
