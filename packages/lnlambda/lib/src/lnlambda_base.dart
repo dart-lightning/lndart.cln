@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:cln_common/cln_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:lnlambda/src/model/lnlambda_model.dart';
+import 'package:clightning_rpc/src/utils/exception/ln_client_error.dart';
 
 class LNLambdaClient implements LightningClient {
   final String nodeID;
@@ -59,7 +59,8 @@ class LNLambdaClient implements LightningClient {
         body: json.encode(request.toJSON()));
     Map<String, dynamic> result = json.decode(response.body);
     if (result.containsKey("error")) {
-      throw Exception(response.body);
+      var jsonString = result["error"];
+      throw LNClientException(jsonString["code"], jsonString["message"], jsonString["data"]);
     }
     return result["result"];
   }
