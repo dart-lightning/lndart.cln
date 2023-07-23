@@ -3,5 +3,5 @@ class LNClientException implements Exception {
   int code;
   String? data;
 
-  LNClientException(this.code, this.message, this.data);
+  LNClientException({required this.code, required this.message, this.data});
 }

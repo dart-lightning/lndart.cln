@@ -2,7 +2,7 @@ name: clightning_rpc
 description: Generic and Fast way to have your app connected with core lightning with dart and Unix socket
 version: 0.0.2-beta.4
 homepage: https://github.com/dart-lightning/lndart.clightning
-
+publish_to: none
 environment:
   sdk: '>=2.12.0 <3.0.0'
 
@@ -13,7 +13,8 @@ dev_dependencies:
 dependencies:
   json_rpc_2: ^3.0.1
   jsonrpc2: ^3.0.1
-  cln_common: ^0.0.1-beta.1
+  cln_common:
+    path: ../cln_common
 
 #dependency_overrides:
 #  cln_common:

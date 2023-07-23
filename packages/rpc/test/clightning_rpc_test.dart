@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cln_common/cln_common.dart';
 import 'package:test/test.dart';
 import 'package:clightning_rpc/clightning_rpc.dart';
 

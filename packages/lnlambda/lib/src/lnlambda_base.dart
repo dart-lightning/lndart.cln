@@ -59,7 +59,11 @@ class LNLambdaClient implements LightningClient {
         body: json.encode(request.toJSON()));
     Map<String, dynamic> result = json.decode(response.body);
     if (result.containsKey("error")) {
-      throw Exception(response.body);
+      var jsonString = result["error"];
+      throw LNClientException(
+          code: jsonString["code"],
+          message: jsonString["message"],
+          data: jsonString["data"]);
     }
     return result["result"];
   }
