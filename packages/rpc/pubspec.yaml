@@ -14,7 +14,9 @@ dependencies:
   json_rpc_2: ^3.0.1
   jsonrpc2: ^3.0.1
   cln_common:
-    path: ../cln_common
+    git:
+      url: https://github.com/dart-lightning/lndart.cln
+      path: packages/cln_common
 
 #dependency_overrides:
 #  cln_common:
