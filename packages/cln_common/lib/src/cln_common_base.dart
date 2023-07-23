@@ -8,3 +8,4 @@ export 'package:cln_common/src/json_rpc/request.dart';
 export 'package:cln_common/src/json_rpc/response.dart';
 
 export 'package:cln_common/src/logger/logger_manager.dart';
+export 'package:cln_common/src/utils/exception.dart';

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:cln_common/cln_common.dart';
 import 'package:jsonrpc2/jsonrpc2.dart';
-import 'exception/ln_client_error.dart';
 
 class UnixRPCClient extends ServerProxyBase {
   UnixRPCClient(String path) : super(path);
@@ -26,7 +25,9 @@ class UnixRPCClient extends ServerProxyBase {
           if (eventMap.containsKey("error")) {
             var error = eventMap["error"];
             var exception = LNClientException(
-                error["code"], error["message"], error["data"]);
+                code: error["code"],
+                message: error["message"],
+                data: error["data"]);
             completer.completeError(exception);
           } else {
             completer.complete(utf8.decode(event));
