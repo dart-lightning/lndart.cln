@@ -1,6 +1,6 @@
 name: cln_common
 description: Proposed solution for the package fragmentation across different package and application that used a basic package like building blocks.
-version: 0.0.1-beta.2
+version: 0.0.1-beta.3
 homepage: https://github.com/dart-lightning/lndart.cln
 
 environment:

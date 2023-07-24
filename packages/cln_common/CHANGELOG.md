@@ -1,3 +1,9 @@
+# v0.0.1-beta.3
+
+## Fixed
+
+- adds the LNClientException dependency
+
 # v0.0.1-beta.2
 
 ## Fixed
