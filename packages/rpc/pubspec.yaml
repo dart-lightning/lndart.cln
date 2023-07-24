@@ -1,6 +1,7 @@
 name: clightning_rpc
 description: Generic and Fast way to have your app connected with core lightning with dart and Unix socket
-version: 0.0.2-beta.4
+version: 0.0.2-beta.5
+
 homepage: https://github.com/dart-lightning/lndart.clightning
 
 environment:
