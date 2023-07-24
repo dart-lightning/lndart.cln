@@ -1,3 +1,7 @@
+# v0.0.2-beta.5
+
+- cln_common dependencies bumping
+
 # v0.0.2-beta.4
 
 ## Fixed
