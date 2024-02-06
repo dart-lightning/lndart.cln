@@ -46,13 +46,16 @@ class LNLambdaClient implements LightningClient {
       throw Exception(
           "A rune for the call need to be specified or in the params as `steal_rune` or in the client constructor as default rune");
     }
+    var lnLambdaServer = lambdaServer.endsWith('/')
+        ? lambdaServer.substring(0, lambdaServer.length - 1)
+        : lambdaServer;
     var request = LNLambdaRequest(
         nodeID: nodeID,
         host: host,
         rune: callRune,
         method: method,
         params: params);
-    var response = await http.post(Uri.parse("$lambdaServer/lnsocket"),
+    var response = await http.post(Uri.parse("$lnLambdaServer/lnsocket"),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
